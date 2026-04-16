@@ -1,4 +1,4 @@
-## English Translation Assignment 📝🈂️
+## Personal Habit Tracker AppAssignment 📝🈂️
 ### 🚀 Weekend Project: Personal Habit Tracker App
 Overall Project Goal: Build a complete daily habit tracking application to master basic CRUD operations, link tables with the Authentication system (Auth), and implement all of this within a Flutter environment using Clean Architecture and State Management with BLoC or Cubit.
 

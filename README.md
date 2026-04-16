@@ -5,18 +5,18 @@ Overall Project Goal: Build a complete daily habit tracking application to maste
 ---
 
 ## 🛠 Technologies Used
-#### 1. Frontend & App: Flutter
+##### 1. Frontend & App: Flutter
 
-### 2. State Management: BLoC / Cubit
+##### 2. State Management: BLoC / Cubit
 
-### 3. Architecture: Clean Architecture
+##### 3. Architecture: Clean Architecture
 
-### 4. Backend & Database: Supabase (Auth, Postgres)
+##### 4. Backend & Database: Supabase (Auth, Postgres)
 
 ## 🗄️ Database Requirements (Supabase Schema)
 Students must build the following tables in Supabase and set up the relationships between them:
 
-### 1.  profiles Table (Optional / Bonus):
+#### 1.  profiles Table (Optional / Bonus):
 
 * id (UUID - Primary Key - Foreign Key to auth.users.id)
 
@@ -24,7 +24,7 @@ Students must build the following tables in Supabase and set up the relationship
 
 * created_at (Timestamp)
 
-### 2.  habits Table:
+#### 2.  habits Table:
 
 * id (UUID - Primary Key)
 
@@ -34,7 +34,7 @@ Students must build the following tables in Supabase and set up the relationship
 
 * created_at (Timestamp)
 
-### 3.  habit_logs Table:
+#### 3.  habit_logs Table:
 
 * id (UUID - Primary Key)
 
@@ -74,13 +74,13 @@ Instead of making two separate queries (one to fetch habits, and another to fetc
 ## 🏗️ Evaluation Criteria (Clean Architecture)
 The project will not be evaluated based on the UI alone, but on the code quality and structure:
 
-* **Data Layer:** Must contain separate AuthRepository and HabitsRepository that interact directly with Supabase.
+#### * **Data Layer:** Must contain separate AuthRepository and HabitsRepository that interact directly with Supabase.
 
-* **Domain Layer:** Must contain the Models or Entities for Habits and Logs.
+#### * **Domain Layer:** Must contain the Models or Entities for Habits and Logs.
 
-* **Presentation Layer:** The User Interface (UI) must not contain any database-related code. Communication must be handled exclusively through Cubit or BLoC.
+#### * **Presentation Layer:** The User Interface (UI) must not contain any database-related code. Communication must be handled exclusively through Cubit or BLoC.
 
-## Error Handling: Display clear error messages to the user in case of login failure or data fetching failure.
+#### Error Handling: Display clear error messages to the user in case of login failure or data fetching failure.
 
 Good luck to everyone, we look forward to seeing your creations! 🚀
 

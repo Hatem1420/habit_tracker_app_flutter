@@ -57,7 +57,7 @@ Login and Sign Up interfaces using Email and Password.
 
 * Ability to delete a habit (ensuring its associated logs are automatically deleted).
 
-# Daily Logging:
+### Daily Logging:
 
 Next to each habit in the list, provide a button or Checkbox to mark whether the habit was completed for the day.
 

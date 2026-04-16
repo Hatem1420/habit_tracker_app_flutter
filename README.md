@@ -5,7 +5,7 @@ Overall Project Goal: Build a complete daily habit tracking application to maste
 ---
 
 ## 🛠 Technologies Used
-### 1. Frontend & App: Flutter
+#### 1. Frontend & App: Flutter
 
 ### 2. State Management: BLoC / Cubit
 

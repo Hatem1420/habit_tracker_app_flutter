@@ -11,6 +11,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:personal_habit_tracker_app/core/services/user_service.dart'
+    as _i141;
 import 'package:personal_habit_tracker_app/features/habit_logs/data/datasources/habit_logs_remote_data_source.dart'
     as _i809;
 import 'package:personal_habit_tracker_app/features/habit_logs/data/repositories/habit_logs_repository_data.dart'
@@ -29,7 +31,10 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     gh.lazySingleton<_i809.BaseHabitLogsRemoteDataSource>(
-      () => _i809.HabitLogsRemoteDataSource(gh<_i454.SupabaseClient>()),
+      () => _i809.HabitLogsRemoteDataSource(
+        gh<_i454.SupabaseClient>(),
+        gh<_i141.UserService>(),
+      ),
     );
     gh.lazySingleton<_i433.HabitLogsRepositoryDomain>(
       () => _i980.HabitLogsRepositoryData(

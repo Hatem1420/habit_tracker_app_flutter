@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:personal_habit_tracker_app/core/errors/network_exceptions.dart';
-import 'package:personal_habit_tracker_app/core/services/local_keys_service.dart';
+import 'package:personal_habit_tracker_app/core/services/user_service.dart';
 
 import 'package:personal_habit_tracker_app/features/habit_logs/data/models/habit_logs_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -12,12 +12,15 @@ abstract class BaseHabitLogsRemoteDataSource {
 @LazySingleton(as: BaseHabitLogsRemoteDataSource)
 class HabitLogsRemoteDataSource implements BaseHabitLogsRemoteDataSource {
   final SupabaseClient _supabase;
+  final UserService _userService;
 
-  HabitLogsRemoteDataSource(this._supabase);
+  HabitLogsRemoteDataSource(this._supabase, this._userService);
 
   @override
   Future<List<HabitLogsModel>> getHabitLogs() async {
     try {
+      //!---------- here you use _userService
+
       final response = await _supabase
           .from('habits')
           .select(

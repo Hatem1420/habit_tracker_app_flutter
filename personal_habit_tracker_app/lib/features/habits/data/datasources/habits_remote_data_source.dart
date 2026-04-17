@@ -1,8 +1,7 @@
 import 'package:injectable/injectable.dart';
+import 'package:personal_habit_tracker_app/core/services/user_service.dart';
 import 'package:personal_habit_tracker_app/features/habits/data/models/habits_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:personal_habit_tracker_app/core/services/local_keys_service.dart';
-
 
 abstract class BaseHabitsRemoteDataSource {
   Future<List<HabitsModel>> getHabits();
@@ -11,24 +10,26 @@ abstract class BaseHabitsRemoteDataSource {
 
 @LazySingleton(as: BaseHabitsRemoteDataSource)
 class HabitsRemoteDataSource implements BaseHabitsRemoteDataSource {
- 
   final SupabaseClient _supabase;
-  final LocalKeysService _localKeysService;
-  
-   HabitsRemoteDataSource(this._localKeysService, this._supabase);
+  final UserService _userService;
 
-    @override
+  HabitsRemoteDataSource(this._userService, this._supabase);
+
+  @override
   Future<List<HabitsModel>> getHabits() async {
-  final userId = _supabase.auth.currentUser?.id;
+    try {
+      final userId = _supabase.auth.currentUser?.id;
+      //!---------- here you use _userService
 
-  try{
-    final response = await _supabase.from('habits').select('*').eq('user_id','293c1e23-8b30-468b-8b71-e8c2e4de01d6');
-    return (response as List).map((e) => HabitsModel.fromJson(e)).toList();
-  }
-   catch (e) {
-    print("Error fetching habits: ${e.toString()}");
-    return [];
-  }
+      final response = await _supabase
+          .from('habits')
+          .select('*')
+          .eq('user_id', '293c1e23-8b30-468b-8b71-e8c2e4de01d6');
+      return (response as List).map((e) => HabitsModel.fromJson(e)).toList();
+    } catch (e) {
+      print("Error fetching habits: ${e.toString()}");
+      return [];
+    }
     // try {
     //   return HabitsModel(id: 1, firstName: "Last Name", lastName: "First Name");
     // } catch (error) {
@@ -36,14 +37,12 @@ class HabitsRemoteDataSource implements BaseHabitsRemoteDataSource {
     // }
   }
 
-
-@override
-Future<void> addHabit(String title) async {
-  await _supabase.from('habits').insert({
-    'title': title,
-    'user_id': '293c1e23-8b30-468b-8b71-e8c2e4de01d6', // 293c1e23-8b30-468b-8b71-e8c2e4de01d6
-  });
-}
-
-
+  @override
+  Future<void> addHabit(String title) async {
+    await _supabase.from('habits').insert({
+      'title': title,
+      'user_id':
+          '293c1e23-8b30-468b-8b71-e8c2e4de01d6', // 293c1e23-8b30-468b-8b71-e8c2e4de01d6
+    });
+  }
 }

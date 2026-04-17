@@ -15,7 +15,7 @@ class SplashFeatureScreen extends StatelessWidget {
         listener: (context, state) {
           switch (state) {
             case SplashSuccessState _:
-              context.go(Routes.habitLogs);
+              context.go(Routes.habits);
             case SplashErrorState _:
               context.go(Routes.auth);
           }

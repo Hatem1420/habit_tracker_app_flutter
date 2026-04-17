@@ -1,6 +1,5 @@
 
 import 'package:injectable/injectable.dart';
-import 'package:personal_habit_tracker_app/core/common/models/user_model.dart';
 import 'package:personal_habit_tracker_app/core/services/user_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

@@ -36,7 +36,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => thirdPartyConfig.flutterSecureStorage,
     );
     gh.lazySingleton<_i667.DioClient>(() => _i667.DioClient());
-    gh.lazySingleton<_i381.UserService>(() => _i381.UserService());
+    gh.lazySingleton<_i381.UserService>(
+      () => _i381.UserService(gh<_i454.SupabaseClient>()),
+    );
     gh.singleton<_i945.LocalKeysService>(() => _i945.LocalKeysService());
     return this;
   }

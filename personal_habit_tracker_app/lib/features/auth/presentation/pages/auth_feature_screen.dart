@@ -33,7 +33,7 @@ class AuthFeatureScreen extends HookWidget {
             context.showLoading();
           }
           if (state is AuthSuccessState) {
-            //context.go('home');
+            context.go(Routes.habitLogs);
           }
           if (state is AuthErrorState) {
             context.showSnackBar(state.message, isError: true);
@@ -105,7 +105,9 @@ class AuthFeatureScreen extends HookWidget {
                                 controller: name,
                                 textInputType: .name,
                                 textInputAction: .next,
-                                validator: Validators.validateFullName,
+                                validator: state.signIn
+                                    ? null
+                                    : Validators.validateFullName,
                               ),
                               secondChild: SizedBox.shrink(),
                             ),
@@ -131,6 +133,9 @@ class AuthFeatureScreen extends HookWidget {
                                       label: 'Date Of Birth',
                                       controller: dOBCon,
                                       readOnly: true,
+                                      validator: state.signIn
+                                          ? null
+                                          : Validators.validateRequired,
                                     ),
                                   ),
                                   IconButton.filled(

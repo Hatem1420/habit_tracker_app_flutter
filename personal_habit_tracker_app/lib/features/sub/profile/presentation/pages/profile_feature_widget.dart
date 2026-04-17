@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:personal_habit_tracker_app/core/extensions/context_extensions.dart';
+import 'package:personal_habit_tracker_app/core/widgets/loading_widget.dart';
 import 'package:personal_habit_tracker_app/features/sub/profile/presentation/cubit/profile_cubit.dart';
+import 'package:personal_habit_tracker_app/features/sub/profile/presentation/cubit/profile_state.dart';
 import 'package:personal_habit_tracker_app/features/sub/profile/presentation/pages/profile_bottom_widget.dart';
-
 
 class ProfileFeatureWidget extends StatelessWidget {
   const ProfileFeatureWidget({super.key});
@@ -14,12 +15,31 @@ class ProfileFeatureWidget extends StatelessWidget {
       create: (context) => ProfileCubit(GetIt.I.get()),
       child: Builder(
         builder: (context) {
-          final _ = context.read<ProfileCubit>();
-          return GestureDetector(
-            onTap: () => context.showBottomSheet(widget: ProfileBottomWidget()),
-            child: CircleAvatar(
-              child: Icon(Icons.person),
-            ),
+          final profileCubit = context.read<ProfileCubit>();
+          return BlocConsumer<ProfileCubit, ProfileState>(
+            listener: (context, state) {
+              if (state is ProfileSuccessState) {
+                context.showBottomSheet(
+                  widget: ProfileBottomWidget(profileEntity: state.profile),
+                );
+              }
+            },
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  onTap: () => profileCubit.getProfileMethod(),
+                  child: CircleAvatar(
+                    child: state is ProfileLoadingState
+                        ? LoadingWidget()
+                        : Icon(
+                            Icons.person,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                  ),
+                ),
+              );
+            },
           );
         },
       ),

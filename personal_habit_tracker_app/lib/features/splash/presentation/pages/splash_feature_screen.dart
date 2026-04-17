@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_habit_tracker_app/core/extensions/context_extensions.dart';
 import 'package:personal_habit_tracker_app/core/navigation/routers.dart';
 import 'package:personal_habit_tracker_app/core/widgets/loading_widget.dart';
 import 'package:personal_habit_tracker_app/features/splash/presentation/cubit/splash_cubit.dart';
@@ -16,8 +15,7 @@ class SplashFeatureScreen extends StatelessWidget {
         listener: (context, state) {
           switch (state) {
             case SplashSuccessState _:
-              context.go(Routes.auth);
-              context.showSnackBar('User is found');
+              context.go(Routes.habitLogs);
             case SplashErrorState _:
               context.go(Routes.auth);
           }

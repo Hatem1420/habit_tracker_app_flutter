@@ -5,6 +5,7 @@ class ProfileEntity extends Equatable {
   final String name;
   final String email;
   final DateTime dateOfBirth;
+  
 
   const ProfileEntity({
     required this.id,

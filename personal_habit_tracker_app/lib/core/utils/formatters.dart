@@ -20,6 +20,10 @@ class Formatters {
     return DateFormat('HH:mm').format(time);
   }
 
+  static String getAge(DateTime dateTime) {
+    return (DateTime.now().year - dateTime.year).toString();
+  }
+
   static String formatPhoneNumber(String phone) {
     if (phone.length == 10) {
       return '(${phone.substring(0, 3)}) ${phone.substring(3, 6)}-${phone.substring(6)}';

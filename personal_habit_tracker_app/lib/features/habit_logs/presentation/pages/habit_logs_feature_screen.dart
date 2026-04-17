@@ -6,6 +6,8 @@ import 'package:personal_habit_tracker_app/features/habit_logs/domain/entities/h
 import 'package:personal_habit_tracker_app/features/habit_logs/presentation/cubit/habit_logs_cubit.dart';
 import 'package:personal_habit_tracker_app/features/habit_logs/presentation/cubit/habit_logs_state.dart';
 import 'package:personal_habit_tracker_app/features/habit_logs/presentation/widgets/habit_logs_widget.dart';
+import 'package:personal_habit_tracker_app/features/sub/profile/presentation/pages/profile_feature_widget.dart';
+import 'package:personal_habit_tracker_app/features/sub/sign_out/presentation/pages/sign_out_feature_widget.dart';
 
 class HabitLogsFeatureScreen extends HookWidget {
   const HabitLogsFeatureScreen({super.key});
@@ -31,13 +33,14 @@ class HabitLogsFeatureScreen extends HookWidget {
           'Habit Logs',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
         ),
+        leading: ProfileFeatureWidget(),
+        actions: [SignOutFeatureWidget()],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: BlocListener<HabitLogsCubit, HabitLogsState>(
           listener: (context, state) {
             switch (state) {
-            
               case HabitLogsSuccess():
                 context.hideLoading();
                 break;

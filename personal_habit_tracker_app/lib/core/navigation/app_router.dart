@@ -10,10 +10,9 @@ import 'package:personal_habit_tracker_app/features/splash/presentation/cubit/sp
 import 'package:personal_habit_tracker_app/features/habit_logs/presentation/pages/habit_logs_feature_screen.dart';
 import 'package:personal_habit_tracker_app/features/habit_logs/presentation/cubit/habit_logs_cubit.dart';
 
-
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: Routes.habitLogs,
+    initialLocation: Routes.splash,
     routes: [
       GoRoute(
         path: Routes.auth,
@@ -30,15 +29,15 @@ class AppRouter {
           child: const SplashFeatureScreen(),
         ),
       ),
-    
-  GoRoute(
-    path: Routes.habitLogs,
-    builder: (context, state) => BlocProvider(
+
+      GoRoute(
+        path: Routes.habitLogs,
+        builder: (context, state) => BlocProvider(
           create: (context) => HabitLogsCubit(GetIt.I.get()),
           child: const HabitLogsFeatureScreen(),
         ),
-  ),
-],
+      ),
+    ],
 
     errorBuilder: (context, state) =>
         Scaffold(body: Center(child: Text('Page not found: ${state.uri}'))),

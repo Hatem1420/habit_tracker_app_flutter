@@ -3,19 +3,35 @@ import 'package:flutter/material.dart';
 import 'routers.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+<<<<<<< HEAD
 import 'package:personal_habit_tracker_app/features/habits/presentation/pages/habits_feature_screen.dart';
 import 'package:personal_habit_tracker_app/features/habits/presentation/cubit/habits_cubit.dart';
 
+=======
+import 'package:personal_habit_tracker_app/features/auth/presentation/pages/auth_feature_screen.dart';
+import 'package:personal_habit_tracker_app/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:personal_habit_tracker_app/features/splash/presentation/pages/splash_feature_screen.dart';
+import 'package:personal_habit_tracker_app/features/splash/presentation/cubit/splash_cubit.dart';
+>>>>>>> e43ee4587d9cbb8491cb8fecb3aadec57ed3da1f
 
 class AppRouter {
   static final GoRouter router = GoRouter(
     initialLocation: Routes.splash,
     routes: [
       GoRoute(
+        path: Routes.auth,
+        builder: (context, state) => BlocProvider(
+          create: (context) => AuthCubit(GetIt.I.get()),
+          child: const AuthFeatureScreen(),
+        ),
+      ),
+
+      GoRoute(
         path: Routes.splash,
-        builder: (context, state) {
-          return Scaffold(body: Center(child: Text("splash screen")));
-        }, // SplashScreen
+        builder: (context, state) => BlocProvider(
+          create: (context) => SplashCubit(GetIt.I.get()),
+          child: const SplashFeatureScreen(),
+        ),
       ),
     
   GoRoute(

@@ -19,7 +19,7 @@ abstract class HabitsModel with _$HabitsModel {
       createdAt: json['created_at'] as String,);
     }
 catch (e) {
-    print("خطأ في تحويل البيانات: $e");
+    print(" error ....  $e");
       rethrow;
   }
 }

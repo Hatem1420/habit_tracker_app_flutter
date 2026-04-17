@@ -9,7 +9,7 @@ import 'package:personal_habit_tracker_app/features/habits/presentation/cubit/ha
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: Routes.habits,
+    initialLocation: Routes.splash,
     routes: [
       GoRoute(
         path: Routes.splash,

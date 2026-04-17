@@ -5,6 +5,7 @@ import 'package:personal_habit_tracker_app/features/auth/di/auth_di.dart';
 import 'package:personal_habit_tracker_app/features/splash/di/splash_di.dart';
 import 'package:personal_habit_tracker_app/features/sub/profile/di/profile_di.dart';
 import 'package:personal_habit_tracker_app/features/sub/sign_out/di/sign_out_di.dart';
+import 'package:personal_habit_tracker_app/features/habit_logs/di/habit_logs_di.dart';
 
 @InjectableInit(
   initializerName: 'init', 
@@ -20,4 +21,5 @@ Future<void> configureDependencies() async {
     configureSplash(getIt);
     configureProfileSub(getIt);
     configureSignOutSub(getIt);
+    configureHabitLogs(getIt);
 }

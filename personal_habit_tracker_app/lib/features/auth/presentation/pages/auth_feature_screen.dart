@@ -34,7 +34,7 @@ class AuthFeatureScreen extends HookWidget {
             context.showLoading();
           }
           if (state is AuthSuccessState) {
-            context.go(Routes.habits);
+            context.go(Routes.habits); //'home'
           }
           if (state is AuthErrorState) {
             context.showSnackBar(state.message, isError: true);

@@ -20,6 +20,21 @@ class HabitLogsCubit extends Cubit<HabitLogsState> {
     );
   }
 
+  Future<void> addHabitLog(String habitId) async {
+    final result = await _habitLogsUseCase.addHabitLog(
+      habitId: habitId,
+    );
+
+    result.when(
+      (_) async {
+        await getHabitLogsMethod();
+      },
+      (whenError) {
+        emit(HabitLogsError(message: whenError.message));
+      },
+    );
+  }
+
   @override
   Future<void> close() {
     return super.close();

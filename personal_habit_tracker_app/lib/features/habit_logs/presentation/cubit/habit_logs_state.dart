@@ -9,6 +9,9 @@ abstract class HabitLogsState extends Equatable {
 }
 
 class HabitLogsInitial extends HabitLogsState {}
+class HabitLogsLoading extends HabitLogsState {}
+
+
 
 class HabitLogsSuccess extends HabitLogsState {
   final List<HabitLogsEntity> logs;

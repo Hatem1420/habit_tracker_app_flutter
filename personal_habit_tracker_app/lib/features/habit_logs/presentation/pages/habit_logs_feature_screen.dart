@@ -6,8 +6,6 @@ import 'package:personal_habit_tracker_app/features/habit_logs/domain/entities/h
 import 'package:personal_habit_tracker_app/features/habit_logs/presentation/cubit/habit_logs_cubit.dart';
 import 'package:personal_habit_tracker_app/features/habit_logs/presentation/cubit/habit_logs_state.dart';
 import 'package:personal_habit_tracker_app/features/habit_logs/presentation/widgets/habit_logs_widget.dart';
-import 'package:personal_habit_tracker_app/features/sub/profile/presentation/pages/profile_feature_widget.dart';
-import 'package:personal_habit_tracker_app/features/sub/sign_out/presentation/pages/sign_out_feature_widget.dart';
 
 class HabitLogsFeatureScreen extends HookWidget {
   const HabitLogsFeatureScreen({super.key});
@@ -31,16 +29,20 @@ class HabitLogsFeatureScreen extends HookWidget {
         backgroundColor: const Color(0xffF7F5FB),
         title: const Text(
           'Habit Logs',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w700,
+          ),
         ),
-        leading: ProfileFeatureWidget(),
-        actions: [SignOutFeatureWidget()],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: BlocListener<HabitLogsCubit, HabitLogsState>(
           listener: (context, state) {
             switch (state) {
+              case HabitLogsLoading():
+                context.showLoading();
+                break;
               case HabitLogsSuccess():
                 context.hideLoading();
                 break;
@@ -73,7 +75,8 @@ class HabitLogsFeatureScreen extends HookWidget {
                   },
                   child: ListView.separated(
                     itemCount: state.logs.length,
-                    separatorBuilder: (context, index) => SizedBox(height: 18),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 18),
                     itemBuilder: (context, index) {
                       final habit = state.logs[index];
 
@@ -82,10 +85,123 @@ class HabitLogsFeatureScreen extends HookWidget {
 
                       return HabitLogCard(
                         title: habit.title,
-                        date: (latestLog?.logDate ?? habit.createdAt)
+                        date: (latestLog?.logDate ??
+                                habit.createdAt ??
+                                'No date')
+                            .toString()
                             .split('T')
                             .first,
                         isCompleted: latestLog?.isCompleted ?? false,
+                        onChanged: (value) async {
+                          if (value != true) return;
+
+                          final confirmed = await showDialog<bool>(
+                            context: context,
+                            builder: (dialogContext) {
+                              return Dialog(
+                                backgroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(28),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(22),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        width: 70,
+                                        height: 70,
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xffE8E0F8),
+                                          borderRadius:
+                                              BorderRadius.circular(22),
+                                        ),
+                                        child: const Icon(
+                                          Icons.check_circle_outline_rounded,
+                                          color: Color(0xff7261F6),
+                                          size: 34,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      const Text(
+                                        'Complete Habit?',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                        'Are you sure you want to mark this habit as completed?',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xff8D8896),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 20),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: OutlinedButton(
+                                              style: OutlinedButton.styleFrom(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                ),
+                                                side: const BorderSide(
+                                                  color: Color(0xffEAE6F5),
+                                                ),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  vertical: 14,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pop(
+                                                    dialogContext, false);
+                                              },
+                                              child: const Text('Cancel'),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 12),
+                                          Expanded(
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    const Color(0xff7261F6),
+                                                foregroundColor: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                ),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  vertical: 14,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pop(
+                                                    dialogContext, true);
+                                              },
+                                              child: const Text('Yes'),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+
+                          if (confirmed == true) {
+                            await context
+                                .read<HabitLogsCubit>()
+                                .addHabitLog(habit.id);
+                          }
+                        },
                       );
                     },
                   ),

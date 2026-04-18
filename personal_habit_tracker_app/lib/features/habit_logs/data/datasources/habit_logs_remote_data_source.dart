@@ -21,13 +21,15 @@ class HabitLogsRemoteDataSource implements BaseHabitLogsRemoteDataSource {
   @override
   Future<List<HabitLogsModel>> getHabitLogs() async {
     try {
-      final userId = _supabase.auth.currentUser!.id;
+      final userId = _userService.user!.id;
+
+
       final response = await _supabase
           .from('habits')
           .select(
             'id, title, created_at, habit_logs(id, habit_id, log_date, is_completed)',
           )
-         ;
+          .eq('user_id', userId);
 
       return response
           .map<HabitLogsModel>((item) => HabitLogsModel.fromJson(item))

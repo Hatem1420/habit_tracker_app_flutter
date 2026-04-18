@@ -33,12 +33,14 @@ class AppRouter {
       ),
 
       GoRoute(
-        path: Routes.habitLogs,
-        builder: (context, state) => BlocProvider(
-          create: (context) => HabitLogsCubit(GetIt.I.get()),
-          child: const HabitLogsFeatureScreen(),
-        ),
-      ),
+  path: Routes.habitLogs,
+  builder: (context, state) => BlocProvider(
+    create: (context) => HabitLogsCubit(GetIt.I.get())..getHabitLogsMethod(),
+    child: HabitLogsFeatureScreen(
+      habitId: state.extra as String,
+    ),
+  ),
+),
 
       GoRoute(
         path: Routes.habits,

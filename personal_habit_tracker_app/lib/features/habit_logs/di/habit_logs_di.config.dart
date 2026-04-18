@@ -21,6 +21,8 @@ import 'package:personal_habit_tracker_app/features/habit_logs/domain/repositori
     as _i433;
 import 'package:personal_habit_tracker_app/features/habit_logs/domain/use_cases/habit_logs_use_case.dart'
     as _i224;
+import 'package:personal_habit_tracker_app/features/habit_logs/presentation/cubit/habit_logs_cubit.dart'
+    as _i177;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i454;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -43,6 +45,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i224.HabitLogsUseCase>(
       () => _i224.HabitLogsUseCase(gh<_i433.HabitLogsRepositoryDomain>()),
+    );
+    gh.factory<_i177.HabitLogsCubit>(
+      () => _i177.HabitLogsCubit(gh<_i224.HabitLogsUseCase>()),
     );
     return this;
   }

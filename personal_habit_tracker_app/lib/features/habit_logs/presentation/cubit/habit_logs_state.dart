@@ -9,16 +9,13 @@ abstract class HabitLogsState extends Equatable {
 }
 
 class HabitLogsInitial extends HabitLogsState {}
+
 class HabitLogsLoading extends HabitLogsState {}
-
-
 
 class HabitLogsSuccess extends HabitLogsState {
   final List<HabitLogsEntity> logs;
 
-  const HabitLogsSuccess({
-    required this.logs,
-  });
+  const HabitLogsSuccess({required this.logs});
 
   @override
   List<Object?> get props => [logs];
@@ -27,9 +24,7 @@ class HabitLogsSuccess extends HabitLogsState {
 class HabitLogsError extends HabitLogsState {
   final String message;
 
-  const HabitLogsError({
-    required this.message,
-  });
+  const HabitLogsError({required this.message});
 
   @override
   List<Object?> get props => [message];

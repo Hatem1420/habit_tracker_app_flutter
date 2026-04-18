@@ -85,14 +85,11 @@ class HabitsFeatureScreen extends HookWidget {
                               title: Text(title),
                               subtitle: Text('Created at: $createdAt'),
                               trailing: IconButton(
-                                icon: IconButton(
-                                  onPressed: () =>
-                                      context.push(Routes.habitLogs),
-                                  icon: Icon(Icons.more_vert),
+                                onPressed: () => context.push(
+                                  Routes.habitLogs,
+                                  extra: habit.id,
                                 ),
-                                onPressed: () {
-                                  // context.push((Routes.));
-                                },
+                                icon: const Icon(Icons.more_vert),
                               ), //Icons.density_small
                             );
                           },

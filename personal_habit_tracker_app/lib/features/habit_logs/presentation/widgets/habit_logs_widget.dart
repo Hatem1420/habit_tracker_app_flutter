@@ -29,6 +29,13 @@ class HabitLogCard extends StatelessWidget {
               : const Color(0xffEAE6F5),
           width: 1.2,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: .03),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
         children: [

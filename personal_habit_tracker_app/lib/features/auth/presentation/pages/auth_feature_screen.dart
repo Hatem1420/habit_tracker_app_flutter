@@ -49,19 +49,12 @@ class AuthFeatureScreen extends HookWidget {
             spacing: 10.sizeSH(max: 30),
             children: [
               Lottie.asset(
-                AppImages.welcome,
-                width: 400,
-                height: 250,
-                fit: BoxFit.fill,
-                /* onLoaded: (composition) {
-                              lottieController.duration = composition.duration;
-                              lottieController.forward();
-                              lottieController.addListener(() {
-                                if (lottieController.value >= 0.35) {
-                                  lottieController.stop();
-                                }
-                              });
-                            }, */
+                AppImages.welcome3,
+                height: 25.sh,
+                errorBuilder: (context, error, stackTrace) => Text(
+                  'Welcome!',
+                  style: TextStyle(fontWeight: .bold, fontSize: 25.sp),
+                ),
               ),
 
               Card(
@@ -133,11 +126,11 @@ class AuthFeatureScreen extends HookWidget {
                                         ),
                                       );
                                     },
-                                    icon: Icon(Icons.edit),
+                                    icon: const Icon(Icons.edit),
                                   ),
                                 ],
                               ),
-                              secondChild: SizedBox.shrink(),
+                              secondChild: const SizedBox.shrink(),
                             ),
 
                             CustomTextField(
@@ -192,21 +185,16 @@ class AuthFeatureScreen extends HookWidget {
                       foregroundColor: .all(
                         Theme.of(context).colorScheme.onSurface,
                       ),
-                      backgroundColor: WidgetStateProperty.resolveWith<Color>((
-                        states,
-                      ) {
-                        if (states.contains(WidgetState.selected)) {
-                          return Theme.of(
-                            context,
-                          ).colorScheme.primary; // Color when selected
-                        }
-                        return Colors.transparent; // Color when unselected
-                      }),
+                      backgroundColor: .resolveWith(
+                        (states) => states.contains(WidgetState.selected)
+                            ? Theme.of(context).colorScheme.primary
+                            : Colors.transparent,
+                      ),
                     ),
                     showSelectedIcon: false,
                     segments: [
-                      ButtonSegment(value: true, label: Text('Sign In')),
-                      ButtonSegment(value: false, label: Text('Sign Up')),
+                      const ButtonSegment(value: true, label: Text('Sign In')),
+                      const ButtonSegment(value: false, label: Text('Sign Up')),
                     ],
                     selected: {state.signIn},
                     onSelectionChanged: (value) =>

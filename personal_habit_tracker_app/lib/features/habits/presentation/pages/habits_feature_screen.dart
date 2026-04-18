@@ -43,6 +43,7 @@ class HabitsFeatureScreen extends HookWidget {
                       ElevatedButton.icon(
                         onPressed: () {
                           context.showBottomSheet(
+                            height: 50.sh,
                             widget: BlocProvider.value(
                               value: context.read<HabitsCubit>(),
                               child: const AddHabitBottomSheet(),

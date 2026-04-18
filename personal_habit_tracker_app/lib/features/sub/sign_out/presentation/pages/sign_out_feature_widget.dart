@@ -30,11 +30,11 @@ class SignOutFeatureWidget extends StatelessWidget {
             },
             child: ListTile(
               onTap: () => signOutCubit.getSignOutMethod(),
-              title: Text(
+              title: const Text(
                 'Log Out',
                 style: TextStyle(color: Colors.redAccent, fontWeight: .bold),
               ),
-              trailing: Icon(
+              trailing: const Icon(
                 Icons.arrow_forward_ios_rounded,
                 color: Colors.redAccent,
               ),

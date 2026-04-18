@@ -29,4 +29,5 @@ class UserService {
     await _supabase.auth.signOut();
     _userEntity = null;
   }
+
 }

@@ -3,7 +3,6 @@ import 'package:personal_habit_tracker_app/core/common/entities/user_entity.dart
 import 'package:personal_habit_tracker_app/core/services/user_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:personal_habit_tracker_app/features/sub/profile/data/models/profile_model.dart';
-import 'package:personal_habit_tracker_app/core/errors/network_exceptions.dart';
 
 abstract class BaseProfileRemoteDataSource {
   Future<ProfileModel> getProfile();
@@ -18,23 +17,23 @@ class ProfileRemoteDataSource implements BaseProfileRemoteDataSource {
 
   @override
   Future<ProfileModel> getProfile() async {
-    try {
-      final UserEntity userInfo = _userService.user!;
-      final userHabits = await _supabase
-          .from('habits')
-          .select('*')
-          .eq('user_id', userInfo.id);
+    final UserEntity userInfo = _userService.user!;
+    final userHabits = await _supabase
+        .from('habits_with_log_count')
+        .select()
+        .eq('user_id', userInfo.id);
 
-      return ProfileModel(
-        id: userInfo.id,
-        name: userInfo.name,
-        email: userInfo.email,
-        dateOfBirth: userInfo.dateOfBirth,
-        totalHabits: userHabits.length,
-        noOfCompletes: 0,
-      );
-    } catch (error) {
-      throw FailureExceptions.getException(error);
-    }
+    return ProfileModel(
+      id: userInfo.id,
+      name: userInfo.name,
+      email: userInfo.email,
+      dateOfBirth: userInfo.dateOfBirth,
+      totalHabits: userHabits.length,
+      noOfCompletes: userHabits.fold(
+        0,
+        (previousValue, element) =>
+            previousValue + element['logs_count'] as int,
+      ),
+    );
   }
 }

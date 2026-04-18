@@ -13,5 +13,6 @@ abstract class AppImages {
   static const String error = '$_basePath/error.png';
   static const String noInternet = '$_basePath/no_internet.png';
   static const String welcome = '$_basePath/Welcome.json';
+  static const String welcome2 = '$_basePath/FreezingEYES.json';
+  static const String welcome3 = '$_basePath/Welcome Screen.json';
 }
-

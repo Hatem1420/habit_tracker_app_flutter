@@ -20,11 +20,18 @@ class ProfileRemoteDataSource implements BaseProfileRemoteDataSource {
   Future<ProfileModel> getProfile() async {
     try {
       final UserEntity userInfo = _userService.user!;
+      final userHabits = await _supabase
+          .from('habits')
+          .select('*')
+          .eq('user_id', userInfo.id);
+
       return ProfileModel(
         id: userInfo.id,
         name: userInfo.name,
         email: userInfo.email,
         dateOfBirth: userInfo.dateOfBirth,
+        totalHabits: userHabits.length,
+        noOfCompletes: 0,
       );
     } catch (error) {
       throw FailureExceptions.getException(error);

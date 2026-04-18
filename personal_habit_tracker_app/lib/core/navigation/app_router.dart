@@ -5,12 +5,12 @@ import 'package:personal_habit_tracker_app/features/habits/presentation/pages/ha
 import 'routers.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:personal_habit_tracker_app/features/auth/presentation/pages/auth_feature_screen.dart';
 import 'package:personal_habit_tracker_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:personal_habit_tracker_app/features/splash/presentation/pages/splash_feature_screen.dart';
 import 'package:personal_habit_tracker_app/features/splash/presentation/cubit/splash_cubit.dart';
-
+import 'package:personal_habit_tracker_app/features/habit_logs/presentation/pages/habit_logs_feature_screen.dart';
+import 'package:personal_habit_tracker_app/features/habit_logs/presentation/cubit/habit_logs_cubit.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -31,15 +31,23 @@ class AppRouter {
           child: const SplashFeatureScreen(),
         ),
       ),
-    
-  GoRoute(
-    path: Routes.habits,
-    builder: (context, state) => BlocProvider(
-          create: (context) => HabitsCubit(GetIt.I.get()),
+
+      GoRoute(
+        path: Routes.habitLogs,
+        builder: (context, state) => BlocProvider(
+          create: (context) => HabitLogsCubit(GetIt.I.get()),
+          child: const HabitLogsFeatureScreen(),
+        ),
+      ),
+
+      GoRoute(
+        path: Routes.habits,
+        builder: (context, state) => BlocProvider(
+          create: (context) => HabitsCubit(GetIt.I.get())..getHabitsMethod(),
           child: const HabitsFeatureScreen(),
         ),
-  ),
-],
+      ),
+    ],
 
     errorBuilder: (context, state) =>
         Scaffold(body: Center(child: Text('Page not found: ${state.uri}'))),

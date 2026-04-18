@@ -10,6 +10,9 @@ abstract class ProfileState extends Equatable {
 
 class ProfileInitialState extends ProfileState {}
 
+class ProfileLoadingState extends ProfileState {}
+
+
 class ProfileSuccessState extends ProfileState {
   final ProfileEntity profile;
 

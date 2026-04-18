@@ -5,12 +5,16 @@ class ProfileEntity extends Equatable {
   final String name;
   final String email;
   final DateTime dateOfBirth;
+  final int totalHabits;
+  final int noOfCompletes;
 
   const ProfileEntity({
     required this.id,
     required this.name,
     required this.email,
     required this.dateOfBirth,
+    required this.totalHabits,
+    required this.noOfCompletes,
   });
 
   @override

@@ -9,8 +9,5 @@ abstract class AuthRepositoryDomain {
     String password,
   );
 
-  Future<Result<bool, Failure>> signIn(
-    String email,
-    String password,
-  );
+  Future<Result<bool, Failure>> signIn(String email, String password);
 }

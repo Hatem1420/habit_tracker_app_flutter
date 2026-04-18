@@ -34,9 +34,9 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     gh.lazySingleton<_i424.BaseHabitsRemoteDataSource>(
       () => _i424.HabitsRemoteDataSource(
-        gh<_i605.LocalKeysService>(),
-        gh<_i454.SupabaseClient>(),
         gh<_i141.UserService>(),
+        gh<_i454.SupabaseClient>(),
+        gh<_i605.LocalKeysService>(),
       ),
     );
     gh.lazySingleton<_i706.HabitsRepositoryDomain>(

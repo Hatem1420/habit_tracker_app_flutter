@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:personal_habit_tracker_app/core/extensions/context_extensions.dart';
+import 'package:personal_habit_tracker_app/core/extensions/font_extensions.dart';
 import 'package:personal_habit_tracker_app/core/navigation/routers.dart';
 import 'package:personal_habit_tracker_app/core/utils/formatters.dart';
 import 'package:personal_habit_tracker_app/core/utils/validators.dart';
@@ -43,8 +44,129 @@ class AuthFeatureScreen extends HookWidget {
           padding: const .all(8.0),
           child: Column(
             crossAxisAlignment: .center,
-            spacing: 10.sh,
+            spacing: 10.sizeSH(max: 30),
             children: [
+              Text(
+                'Welcome!',
+                style: TextStyle(fontSize: 23.sp, fontWeight: .bold),
+              ),
+
+              Card(
+                clipBehavior: .antiAlias,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Form(
+                    key: keyField,
+                    child: BlocBuilder<AuthCubit, AuthState>(
+                      buildWhen: (previous, current) =>
+                          current is AuthInitialState,
+                      builder: (context, state) {
+                        return Column(
+                          crossAxisAlignment: .center,
+                          spacing: 10,
+                          children: [
+                            AnimatedCrossFade(
+                              duration: Duration(milliseconds: 500),
+                              sizeCurve: Curves.easeInOut,
+                              crossFadeState: state.signIn
+                                  ? .showSecond
+                                  : .showFirst,
+                              firstChild: CustomTextField(
+                                label: 'Name',
+                                controller: name,
+                                textInputType: .name,
+                                textInputAction: .next,
+                                validator: state.signIn
+                                    ? null
+                                    : Validators.validateFullName,
+                              ),
+                              secondChild: SizedBox.shrink(),
+                            ),
+
+                            CustomTextField(
+                              label: 'Email',
+                              controller: email,
+                              textInputType: .emailAddress,
+                              textInputAction: .next,
+                              validator: Validators.validateEmail,
+                            ),
+
+                            AnimatedCrossFade(
+                              duration: Duration(milliseconds: 500),
+                              sizeCurve: Curves.easeInOut,
+                              crossFadeState: state.signIn
+                                  ? .showSecond
+                                  : .showFirst,
+                              firstChild: Row(
+                                children: [
+                                  Expanded(
+                                    child: CustomTextField(
+                                      label: 'Date Of Birth',
+                                      controller: dOBCon,
+                                      readOnly: true,
+                                      validator: state.signIn
+                                          ? null
+                                          : Validators.validateRequired,
+                                    ),
+                                  ),
+                                  IconButton.filled(
+                                    padding: .zero,
+                                    onPressed: () {
+                                      context.showBottomSheet(
+                                        height: 50.sh,
+                                        widget: DatePickerBottom(
+                                          onSubmit: (date) => dOBCon.text =
+                                              Formatters.formatDate(date),
+                                        ),
+                                      );
+                                    },
+                                    icon: Icon(Icons.edit),
+                                  ),
+                                ],
+                              ),
+                              secondChild: SizedBox.shrink(),
+                            ),
+
+                            CustomTextField(
+                              label: 'Password',
+                              controller: password,
+                              validator: Validators.validatePassword,
+                            ),
+
+                            Gap(20),
+
+                            FilledButton(
+                              onPressed: () => keyField.currentState!.validate()
+                                  ? state.signIn
+                                        ? authCubit.signIn(
+                                            email.text,
+                                            password.text,
+                                          )
+                                        : authCubit.signUp(
+                                            name: name.text,
+                                            email: email.text,
+                                            dateOfBirth: DateTime.parse(
+                                              dOBCon.text,
+                                            ),
+                                            password: password.text,
+                                          )
+                                  : null,
+                              child: Text(
+                                state.signIn ? 'Sign In' : 'Sign Up',
+                                style: TextStyle(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
               BlocBuilder<AuthCubit, AuthState>(
                 buildWhen: (previous, current) => current is AuthInitialState,
                 builder: (context, state) {
@@ -78,121 +200,6 @@ class AuthFeatureScreen extends HookWidget {
                         authCubit.toggleSign(value.last),
                   );
                 },
-              ),
-
-              Card(
-                clipBehavior: .antiAlias,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Form(
-                    key: keyField,
-                    child: BlocBuilder<AuthCubit, AuthState>(
-                      buildWhen: (previous, current) =>
-                          current is AuthInitialState,
-                      builder: (context, state) {
-                        return Column(
-                          crossAxisAlignment: .start,
-                          spacing: 10,
-                          children: [
-                            AnimatedCrossFade(
-                              duration: Duration(milliseconds: 500),
-                              sizeCurve: Curves.easeInOut,
-                              crossFadeState: state.signIn
-                                  ? .showSecond
-                                  : .showFirst,
-                              firstChild: CustomTextField(
-                                label: 'Name',
-                                controller: name,
-                                textInputType: .name,
-                                textInputAction: .next,
-                                validator: Validators.validateFullName,
-                              ),
-                              secondChild: SizedBox.shrink(),
-                            ),
-
-                            CustomTextField(
-                              label: 'Email',
-                              controller: email,
-                              textInputType: .emailAddress,
-                              textInputAction: .next,
-                              validator: Validators.validateEmail,
-                            ),
-
-                            AnimatedCrossFade(
-                              duration: Duration(milliseconds: 500),
-                              sizeCurve: Curves.easeInOut,
-                              crossFadeState: state.signIn
-                                  ? .showSecond
-                                  : .showFirst,
-                              firstChild: Row(
-                                children: [
-                                  Expanded(
-                                    child: CustomTextField(
-                                      label: 'Date Of Birth',
-                                      controller: dOBCon,
-                                      readOnly: true,
-                                    ),
-                                  ),
-                                  IconButton.filled(
-                                    padding: .zero,
-                                    onPressed: () {
-                                      context.showBottomSheet(
-                                        height: 50.sh,
-                                        widget: DatePickerBottom(
-                                          onSubmit: (date) => dOBCon.text =
-                                              Formatters.formatDate(date),
-                                        ),
-                                      );
-                                    },
-                                    icon: Icon(Icons.edit),
-                                  ),
-                                ],
-                              ),
-                              secondChild: SizedBox.shrink(),
-                            ),
-
-                            CustomTextField(
-                              label: 'Password',
-                              controller: password,
-                              validator: Validators.validatePassword,
-                            ),
-
-                            Gap(20),
-
-                            Center(
-                              child: FilledButton(
-                                onPressed: () =>
-                                    keyField.currentState!.validate()
-                                    ? state.signIn
-                                          ? authCubit.signIn(
-                                              email.text,
-                                              password.text,
-                                            )
-                                          : authCubit.signUp(
-                                              name: name.text,
-                                              email: email.text,
-                                              dateOfBirth: DateTime.parse(
-                                                dOBCon.text,
-                                              ),
-                                              password: password.text,
-                                            )
-                                    : null,
-                                child: Text(
-                                  state.signIn ? 'Sign In' : 'Sign Up',
-                                  style: TextStyle(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.onSurface,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                ),
               ),
             ],
           ),

@@ -1,9 +1,8 @@
 import 'package:injectable/injectable.dart';
+import 'package:personal_habit_tracker_app/core/services/local_keys_service.dart';
 import 'package:personal_habit_tracker_app/core/services/user_service.dart';
 import 'package:personal_habit_tracker_app/features/habits/data/models/habits_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:personal_habit_tracker_app/core/services/local_keys_service.dart';
-
 
 abstract class BaseHabitsRemoteDataSource {
   Future<List<HabitsModel>> getHabits();
@@ -12,14 +11,14 @@ abstract class BaseHabitsRemoteDataSource {
 
 @LazySingleton(as: BaseHabitsRemoteDataSource)
 class HabitsRemoteDataSource implements BaseHabitsRemoteDataSource {
- 
   final SupabaseClient _supabase;
   final LocalKeysService _localKeysService;
   final UserService userService;
   
-   HabitsRemoteDataSource(this._localKeysService, this._supabase, this.userService,);
 
-    @override
+  HabitsRemoteDataSource(this.userService, this._supabase, this._localKeysService);
+
+  @override
   Future<List<HabitsModel>> getHabits() async {
   final userId = userService.user?.id;
   try{

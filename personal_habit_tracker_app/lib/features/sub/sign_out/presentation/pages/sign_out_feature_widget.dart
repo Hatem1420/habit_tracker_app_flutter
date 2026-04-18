@@ -15,10 +15,10 @@ class SignOutFeatureWidget extends StatelessWidget {
       create: (context) => SignOutCubit(GetIt.I.get()),
       child: Builder(
         builder: (context) {
-          final _ = context.read<SignOutCubit>();
+          final signOutCubit = context.read<SignOutCubit>();
           return BlocListener<SignOutCubit, SignOutState>(
             listener: (context, state) {
-              context.showLoading();
+              context.hideLoading();
               switch (state) {
                 case SignOutSuccessState _:
                   context.go(Routes.auth);
@@ -28,7 +28,17 @@ class SignOutFeatureWidget extends StatelessWidget {
                   context.showLoading();
               }
             },
-            child: Icon(Icons.logout, color: Colors.redAccent),
+            child: ListTile(
+              onTap: () => signOutCubit.getSignOutMethod(),
+              title: Text(
+                'Log Out',
+                style: TextStyle(color: Colors.redAccent, fontWeight: .bold),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: Colors.redAccent,
+              ),
+            ),
           );
         },
       ),

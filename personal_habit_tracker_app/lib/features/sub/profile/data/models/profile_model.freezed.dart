@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProfileModel {
 
- String get id; String get name; String get email; DateTime get dateOfBirth;
+ String get id; String get name; String get email; DateTime get dateOfBirth; int get totalHabits; int get noOfCompletes;
 /// Create a copy of ProfileModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ProfileModelCopyWith<ProfileModel> get copyWith => _$ProfileModelCopyWithImpl<P
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.totalHabits, totalHabits) || other.totalHabits == totalHabits)&&(identical(other.noOfCompletes, noOfCompletes) || other.noOfCompletes == noOfCompletes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,email,dateOfBirth);
+int get hashCode => Object.hash(runtimeType,id,name,email,dateOfBirth,totalHabits,noOfCompletes);
 
 @override
 String toString() {
-  return 'ProfileModel(id: $id, name: $name, email: $email, dateOfBirth: $dateOfBirth)';
+  return 'ProfileModel(id: $id, name: $name, email: $email, dateOfBirth: $dateOfBirth, totalHabits: $totalHabits, noOfCompletes: $noOfCompletes)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ProfileModelCopyWith<$Res>  {
   factory $ProfileModelCopyWith(ProfileModel value, $Res Function(ProfileModel) _then) = _$ProfileModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, String email, DateTime dateOfBirth
+ String id, String name, String email, DateTime dateOfBirth, int totalHabits, int noOfCompletes
 });
 
 
@@ -65,13 +65,15 @@ class _$ProfileModelCopyWithImpl<$Res>
 
 /// Create a copy of ProfileModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? email = null,Object? dateOfBirth = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? email = null,Object? dateOfBirth = null,Object? totalHabits = null,Object? noOfCompletes = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,dateOfBirth: null == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as DateTime,totalHabits: null == totalHabits ? _self.totalHabits : totalHabits // ignore: cast_nullable_to_non_nullable
+as int,noOfCompletes: null == noOfCompletes ? _self.noOfCompletes : noOfCompletes // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -156,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String email,  DateTime dateOfBirth)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String email,  DateTime dateOfBirth,  int totalHabits,  int noOfCompletes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProfileModel() when $default != null:
-return $default(_that.id,_that.name,_that.email,_that.dateOfBirth);case _:
+return $default(_that.id,_that.name,_that.email,_that.dateOfBirth,_that.totalHabits,_that.noOfCompletes);case _:
   return orElse();
 
 }
@@ -177,10 +179,10 @@ return $default(_that.id,_that.name,_that.email,_that.dateOfBirth);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String email,  DateTime dateOfBirth)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String email,  DateTime dateOfBirth,  int totalHabits,  int noOfCompletes)  $default,) {final _that = this;
 switch (_that) {
 case _ProfileModel():
-return $default(_that.id,_that.name,_that.email,_that.dateOfBirth);case _:
+return $default(_that.id,_that.name,_that.email,_that.dateOfBirth,_that.totalHabits,_that.noOfCompletes);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +199,10 @@ return $default(_that.id,_that.name,_that.email,_that.dateOfBirth);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String email,  DateTime dateOfBirth)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String email,  DateTime dateOfBirth,  int totalHabits,  int noOfCompletes)?  $default,) {final _that = this;
 switch (_that) {
 case _ProfileModel() when $default != null:
-return $default(_that.id,_that.name,_that.email,_that.dateOfBirth);case _:
+return $default(_that.id,_that.name,_that.email,_that.dateOfBirth,_that.totalHabits,_that.noOfCompletes);case _:
   return null;
 
 }
@@ -212,13 +214,15 @@ return $default(_that.id,_that.name,_that.email,_that.dateOfBirth);case _:
 
 @JsonSerializable(fieldRename: .snake)
 class _ProfileModel implements ProfileModel {
-  const _ProfileModel({required this.id, required this.name, required this.email, required this.dateOfBirth});
+  const _ProfileModel({required this.id, required this.name, required this.email, required this.dateOfBirth, required this.totalHabits, required this.noOfCompletes});
   factory _ProfileModel.fromJson(Map<String, dynamic> json) => _$ProfileModelFromJson(json);
 
 @override final  String id;
 @override final  String name;
 @override final  String email;
 @override final  DateTime dateOfBirth;
+@override final  int totalHabits;
+@override final  int noOfCompletes;
 
 /// Create a copy of ProfileModel
 /// with the given fields replaced by the non-null parameter values.
@@ -233,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.totalHabits, totalHabits) || other.totalHabits == totalHabits)&&(identical(other.noOfCompletes, noOfCompletes) || other.noOfCompletes == noOfCompletes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,email,dateOfBirth);
+int get hashCode => Object.hash(runtimeType,id,name,email,dateOfBirth,totalHabits,noOfCompletes);
 
 @override
 String toString() {
-  return 'ProfileModel(id: $id, name: $name, email: $email, dateOfBirth: $dateOfBirth)';
+  return 'ProfileModel(id: $id, name: $name, email: $email, dateOfBirth: $dateOfBirth, totalHabits: $totalHabits, noOfCompletes: $noOfCompletes)';
 }
 
 
@@ -253,7 +257,7 @@ abstract mixin class _$ProfileModelCopyWith<$Res> implements $ProfileModelCopyWi
   factory _$ProfileModelCopyWith(_ProfileModel value, $Res Function(_ProfileModel) _then) = __$ProfileModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, String email, DateTime dateOfBirth
+ String id, String name, String email, DateTime dateOfBirth, int totalHabits, int noOfCompletes
 });
 
 
@@ -270,13 +274,15 @@ class __$ProfileModelCopyWithImpl<$Res>
 
 /// Create a copy of ProfileModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? email = null,Object? dateOfBirth = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? email = null,Object? dateOfBirth = null,Object? totalHabits = null,Object? noOfCompletes = null,}) {
   return _then(_ProfileModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,dateOfBirth: null == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as DateTime,totalHabits: null == totalHabits ? _self.totalHabits : totalHabits // ignore: cast_nullable_to_non_nullable
+as int,noOfCompletes: null == noOfCompletes ? _self.noOfCompletes : noOfCompletes // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

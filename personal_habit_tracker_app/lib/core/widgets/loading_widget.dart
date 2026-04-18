@@ -24,10 +24,7 @@ class LoadingWidgetOverlay {
     _overlayEntry = OverlayEntry(
       builder: (context) => Stack(
         children: [
-          ModalBarrier(
-            color: AppColors.background.withAlpha(225),
-            dismissible: false,
-          ),
+          ModalBarrier(color: Colors.black.withAlpha(150), dismissible: false),
           Center(
             child: LoadingAnimationWidget.discreteCircle(
               // leftDotColor: const Color(0xFF1A1A3F),
@@ -72,4 +69,3 @@ class LoadingWidget extends StatelessWidget {
     );
   }
 }
-

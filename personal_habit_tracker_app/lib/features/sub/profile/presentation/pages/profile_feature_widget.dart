@@ -26,16 +26,13 @@ class ProfileFeatureWidget extends StatelessWidget {
             },
             builder: (context, state) {
               return Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10),
                 child: GestureDetector(
                   onTap: () => profileCubit.getProfileMethod(),
                   child: CircleAvatar(
                     child: state is ProfileLoadingState
                         ? LoadingWidget()
-                        : Icon(
-                            Icons.person,
-                            color: Theme.of(context).colorScheme.onSurface,
-                          ),
+                        : Icon(Icons.person, color: Colors.white),
                   ),
                 ),
               );

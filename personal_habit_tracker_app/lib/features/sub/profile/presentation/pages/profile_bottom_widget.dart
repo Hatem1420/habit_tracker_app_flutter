@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_habit_tracker_app/core/utils/formatters.dart';
 import 'package:personal_habit_tracker_app/features/sub/profile/domain/entities/profile_entity.dart';
+import 'package:personal_habit_tracker_app/features/sub/sign_out/presentation/pages/sign_out_feature_widget.dart';
 import 'package:sizer/sizer.dart';
 
 class ProfileBottomWidget extends StatelessWidget {
@@ -45,18 +46,28 @@ class ProfileBottomWidget extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text('Total Habits', style: Theme.of(context).textTheme.titleMedium),
+            title: Text(
+              'Total Habits',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             subtitle: Text(
               profileEntity.totalHabits.toString(),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
           ListTile(
-            title: Text('No. Of Completions', style: Theme.of(context).textTheme.titleMedium),
+            title: Text(
+              'No. Of Completions',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             subtitle: Text(
               profileEntity.noOfCompletes.toString(),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
+          ),
+          ListTile(
+            title: Text('Log Out', style: TextStyle(color: Colors.redAccent)),
+            trailing: SignOutFeatureWidget(),
           ),
         ],
       ),

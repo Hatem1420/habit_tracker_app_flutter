@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:personal_habit_tracker_app/core/extensions/context_extensions.dart';
+import 'package:personal_habit_tracker_app/core/navigation/routers.dart';
 import 'package:personal_habit_tracker_app/features/habits/presentation/cubit/habits_cubit.dart';
 import 'package:personal_habit_tracker_app/features/habits/presentation/cubit/habits_state.dart';
 import 'package:personal_habit_tracker_app/features/habits/presentation/widgets/add_habit_bottom_sheet.dart';
+import 'package:personal_habit_tracker_app/features/sub/profile/presentation/pages/profile_feature_widget.dart';
+import 'package:sizer/sizer.dart';
 
 class HabitsFeatureScreen extends HookWidget {
   const HabitsFeatureScreen({super.key});
@@ -15,7 +20,11 @@ class HabitsFeatureScreen extends HookWidget {
     // String formattedDate = "${pickedDate!.year}-${pickedDate.month}${pickedDate.day}";
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Habits Feature Screen')),
+      appBar: AppBar(
+        title: const Text('Habits Feature Screen'),
+        leading: ProfileFeatureWidget(),
+      ),
+
       body: SafeArea(
         child: BlocBuilder<HabitsCubit, HabitsState>(
           builder: (context, state) {
@@ -33,7 +42,13 @@ class HabitsFeatureScreen extends HookWidget {
                       Spacer(),
                       ElevatedButton.icon(
                         onPressed: () {
-                          showModalBottomSheet(
+                          context.showBottomSheet(
+                            widget: BlocProvider.value(
+                              value: context.read<HabitsCubit>(),
+                              child: const AddHabitBottomSheet(),
+                            ),
+                          );
+                          /* showModalBottomSheet(
                             context: context,
                             builder: (_) {
                               return BlocProvider.value(
@@ -41,7 +56,7 @@ class HabitsFeatureScreen extends HookWidget {
                                 child: const AddHabitBottomSheet(),
                               );
                             },
-                          );
+                          ); */
                         },
                         label: const Text('Add'),
                       ),
@@ -55,12 +70,14 @@ class HabitsFeatureScreen extends HookWidget {
                     Expanded(
                       child: Card(
                         margin: .symmetric(horizontal: 16, vertical: 8),
-                        child: ListView.builder(
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) => Gap(10),
                           itemCount: state.habitsList.length,
                           itemBuilder: (context, index) {
                             final habit = state.habitsList[index];
                             final title = habit.title;
-                            final createdAt = habit.createdAt; // Replace with actual createdAt value
+                            final createdAt = habit
+                                .createdAt; // Replace with actual createdAt value
                             // bool isComplete = false;
 
                             // Replace with actual completion status
@@ -68,7 +85,11 @@ class HabitsFeatureScreen extends HookWidget {
                               title: Text(title),
                               subtitle: Text('Created at: $createdAt'),
                               trailing: IconButton(
-                                icon: Icon(Icons.more_vert),
+                                icon: IconButton(
+                                  onPressed: () =>
+                                      context.push(Routes.habitLogs),
+                                  icon: Icon(Icons.more_vert),
+                                ),
                                 onPressed: () {
                                   // context.push((Routes.));
                                 },
@@ -80,19 +101,26 @@ class HabitsFeatureScreen extends HookWidget {
                     ),
 
                     ElevatedButton.icon(
-                        onPressed: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (_) {
-                              return BlocProvider.value(
-                                value: context.read<HabitsCubit>(),
-                                child: const AddHabitBottomSheet(),
-                              );
-                            },
-                          );
-                        },
-                        label: const Text('Add'),
-                      ),
+                      onPressed: () {
+                        context.showBottomSheet(
+                          height: 50.sh,
+                          widget: BlocProvider.value(
+                            value: context.read<HabitsCubit>(),
+                            child: const AddHabitBottomSheet(),
+                          ),
+                        );
+                        /* showModalBottomSheet(
+                          context: context,
+                          builder: (_) {
+                            return BlocProvider.value(
+                              value: context.read<HabitsCubit>(),
+                              child: const AddHabitBottomSheet(),
+                            );
+                          },
+                        ); */
+                      },
+                      label: const Text('Add'),
+                    ),
                   ],
                 );
 

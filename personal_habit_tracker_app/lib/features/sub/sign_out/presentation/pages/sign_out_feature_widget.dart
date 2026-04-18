@@ -30,7 +30,10 @@ class SignOutFeatureWidget extends StatelessWidget {
             },
             child: IconButton(
               onPressed: () => signOutCubit.getSignOutMethod(),
-              icon: Icon(Icons.logout, color: Colors.redAccent),
+              icon: Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: Colors.redAccent,
+              ),
             ),
           );
         },

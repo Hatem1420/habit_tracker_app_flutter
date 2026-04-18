@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:personal_habit_tracker_app/core/extensions/context_extensions.dart';
+import 'package:personal_habit_tracker_app/core/navigation/routers.dart';
 import 'package:personal_habit_tracker_app/core/utils/formatters.dart';
 import 'package:personal_habit_tracker_app/core/utils/validators.dart';
 import 'package:personal_habit_tracker_app/core/widgets/custom_text_field.dart';
@@ -31,7 +33,7 @@ class AuthFeatureScreen extends HookWidget {
             context.showLoading();
           }
           if (state is AuthSuccessState) {
-            //context.go('home');
+            context.go(Routes.habits); //'home'
           }
           if (state is AuthErrorState) {
             context.showSnackBar(state.message, isError: true);

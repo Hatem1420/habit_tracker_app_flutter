@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:personal_habit_tracker_app/core/services/user_service.dart';
 import 'package:personal_habit_tracker_app/features/habits/data/models/habits_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:personal_habit_tracker_app/core/services/local_keys_service.dart';
@@ -14,15 +15,17 @@ class HabitsRemoteDataSource implements BaseHabitsRemoteDataSource {
  
   final SupabaseClient _supabase;
   final LocalKeysService _localKeysService;
+  final UserService userService;
   
-   HabitsRemoteDataSource(this._localKeysService, this._supabase);
+   HabitsRemoteDataSource(this._localKeysService, this._supabase, this.userService,);
 
     @override
   Future<List<HabitsModel>> getHabits() async {
-  final userId = _supabase.auth.currentUser?.id;
-
+  // final userId = _supabase.auth.currentUser?.id;
+  // final userId = userService.user?.id;
+  final userId = userService.user?.id;
   try{
-    final response = await _supabase.from('habits').select('*').eq('user_id','293c1e23-8b30-468b-8b71-e8c2e4de01d6');
+    final response = await _supabase.from('habits').select('*').eq('user_id',userId!);   //293c1e23-8b30-468b-8b71-e8c2e4de01d6
     return (response as List).map((e) => HabitsModel.fromJson(e)).toList();
   }
    catch (e) {
@@ -39,9 +42,10 @@ class HabitsRemoteDataSource implements BaseHabitsRemoteDataSource {
 
 @override
 Future<void> addHabit(String title) async {
+  final userId = userService.user?.id;
   await _supabase.from('habits').insert({
     'title': title,
-    'user_id': '293c1e23-8b30-468b-8b71-e8c2e4de01d6', // 293c1e23-8b30-468b-8b71-e8c2e4de01d6
+    'user_id': userId, // 293c1e23-8b30-468b-8b71-e8c2e4de01d6      //'293c1e23-8b30-468b-8b71-e8c2e4de01d6'
   });
 }
 

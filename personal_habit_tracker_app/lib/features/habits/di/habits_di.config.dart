@@ -13,6 +13,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:personal_habit_tracker_app/core/services/local_keys_service.dart'
     as _i605;
+import 'package:personal_habit_tracker_app/core/services/user_service.dart'
+    as _i141;
 import 'package:personal_habit_tracker_app/features/habits/data/datasources/habits_remote_data_source.dart'
     as _i424;
 import 'package:personal_habit_tracker_app/features/habits/data/repositories/habits_repository_data.dart'
@@ -34,6 +36,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i424.HabitsRemoteDataSource(
         gh<_i605.LocalKeysService>(),
         gh<_i454.SupabaseClient>(),
+        gh<_i141.UserService>(),
       ),
     );
     gh.lazySingleton<_i706.HabitsRepositoryDomain>(

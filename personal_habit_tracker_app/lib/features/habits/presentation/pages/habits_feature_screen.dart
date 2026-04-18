@@ -127,7 +127,10 @@ class HabitsFeatureScreen extends HookWidget {
                                         color: Color(0xff7261F6),
                                       ),
                                       onPressed: () {
-                                        context.push(Routes.habitLogs);
+                                        context.push(
+                                          Routes.habitLogs,
+                                          extra: habit.id,
+                                        );
                                       },
                                     ),
 

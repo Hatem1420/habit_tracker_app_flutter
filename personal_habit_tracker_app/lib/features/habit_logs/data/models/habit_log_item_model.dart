@@ -6,6 +6,7 @@ part 'habit_log_item_model.g.dart';
 
 @freezed
 abstract class HabitLogItemModel with _$HabitLogItemModel {
+  // ignore: invalid_annotation_target
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory HabitLogItemModel({
     required int id,

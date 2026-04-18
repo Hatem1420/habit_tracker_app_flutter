@@ -7,6 +7,7 @@ part 'habit_logs_model.g.dart';
 
 @freezed
 abstract class HabitLogsModel with _$HabitLogsModel {
+    // ignore: invalid_annotation_target
     @JsonSerializable(fieldRename: .snake) 
   const factory HabitLogsModel({
     required String id,

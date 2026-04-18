@@ -28,9 +28,13 @@ class SignOutFeatureWidget extends StatelessWidget {
                   context.showLoading();
               }
             },
-            child: IconButton(
-              onPressed: () => signOutCubit.getSignOutMethod(),
-              icon: Icon(
+            child: ListTile(
+              onTap: () => signOutCubit.getSignOutMethod(),
+              title: Text(
+                'Log Out',
+                style: TextStyle(color: Colors.redAccent, fontWeight: .bold),
+              ),
+              trailing: Icon(
                 Icons.arrow_forward_ios_rounded,
                 color: Colors.redAccent,
               ),

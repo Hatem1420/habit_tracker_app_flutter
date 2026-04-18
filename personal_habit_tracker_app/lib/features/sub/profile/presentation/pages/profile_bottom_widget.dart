@@ -65,10 +65,7 @@ class ProfileBottomWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
-          ListTile(
-            title: Text('Log Out', style: TextStyle(color: Colors.redAccent)),
-            trailing: SignOutFeatureWidget(),
-          ),
+          SignOutFeatureWidget(),
         ],
       ),
     );

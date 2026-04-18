@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
+import 'package:personal_habit_tracker_app/core/constants/app_images.dart';
 import 'package:personal_habit_tracker_app/core/extensions/context_extensions.dart';
 import 'package:personal_habit_tracker_app/core/extensions/font_extensions.dart';
 import 'package:personal_habit_tracker_app/core/navigation/routers.dart';
@@ -46,9 +48,20 @@ class AuthFeatureScreen extends HookWidget {
             crossAxisAlignment: .center,
             spacing: 10.sizeSH(max: 30),
             children: [
-              Text(
-                'Welcome!',
-                style: TextStyle(fontSize: 23.sp, fontWeight: .bold),
+              Lottie.asset(
+                AppImages.welcome,
+                width: 400,
+                height: 250,
+                fit: BoxFit.fill,
+                /* onLoaded: (composition) {
+                              lottieController.duration = composition.duration;
+                              lottieController.forward();
+                              lottieController.addListener(() {
+                                if (lottieController.value >= 0.35) {
+                                  lottieController.stop();
+                                }
+                              });
+                            }, */
               ),
 
               Card(

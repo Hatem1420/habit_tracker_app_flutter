@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:personal_habit_tracker_app/core/extensions/context_extensions.dart';
+import 'package:personal_habit_tracker_app/core/extensions/font_extensions.dart';
 import 'package:personal_habit_tracker_app/core/navigation/routers.dart';
 import 'package:personal_habit_tracker_app/core/utils/formatters.dart';
 import 'package:personal_habit_tracker_app/core/utils/validators.dart';
@@ -43,41 +44,11 @@ class AuthFeatureScreen extends HookWidget {
           padding: const .all(8.0),
           child: Column(
             crossAxisAlignment: .center,
-            spacing: 10.sh,
+            spacing: 10.sizeSH(max: 30),
             children: [
-              BlocBuilder<AuthCubit, AuthState>(
-                buildWhen: (previous, current) => current is AuthInitialState,
-                builder: (context, state) {
-                  return SegmentedButton(
-                    style: ButtonStyle(
-                      animationDuration: Duration(milliseconds: 500),
-                      side: .all(.none),
-                      padding: .all(.symmetric(horizontal: 16)),
-                      textStyle: .all(Theme.of(context).textTheme.titleMedium),
-                      foregroundColor: .all(
-                        Theme.of(context).colorScheme.onSurface,
-                      ),
-                      backgroundColor: WidgetStateProperty.resolveWith<Color>((
-                        states,
-                      ) {
-                        if (states.contains(WidgetState.selected)) {
-                          return Theme.of(
-                            context,
-                          ).colorScheme.primary; // Color when selected
-                        }
-                        return Colors.transparent; // Color when unselected
-                      }),
-                    ),
-                    showSelectedIcon: false,
-                    segments: [
-                      ButtonSegment(value: true, label: Text('Sign In')),
-                      ButtonSegment(value: false, label: Text('Sign Up')),
-                    ],
-                    selected: {state.signIn},
-                    onSelectionChanged: (value) =>
-                        authCubit.toggleSign(value.last),
-                  );
-                },
+              Text(
+                'Welcome!',
+                style: TextStyle(fontSize: 23.sp, fontWeight: .bold),
               ),
 
               Card(
@@ -91,7 +62,7 @@ class AuthFeatureScreen extends HookWidget {
                           current is AuthInitialState,
                       builder: (context, state) {
                         return Column(
-                          crossAxisAlignment: .start,
+                          crossAxisAlignment: .center,
                           spacing: 10,
                           children: [
                             AnimatedCrossFade(
@@ -164,31 +135,28 @@ class AuthFeatureScreen extends HookWidget {
 
                             Gap(20),
 
-                            Center(
-                              child: FilledButton(
-                                onPressed: () =>
-                                    keyField.currentState!.validate()
-                                    ? state.signIn
-                                          ? authCubit.signIn(
-                                              email.text,
-                                              password.text,
-                                            )
-                                          : authCubit.signUp(
-                                              name: name.text,
-                                              email: email.text,
-                                              dateOfBirth: DateTime.parse(
-                                                dOBCon.text,
-                                              ),
-                                              password: password.text,
-                                            )
-                                    : null,
-                                child: Text(
-                                  state.signIn ? 'Sign In' : 'Sign Up',
-                                  style: TextStyle(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.onSurface,
-                                  ),
+                            FilledButton(
+                              onPressed: () => keyField.currentState!.validate()
+                                  ? state.signIn
+                                        ? authCubit.signIn(
+                                            email.text,
+                                            password.text,
+                                          )
+                                        : authCubit.signUp(
+                                            name: name.text,
+                                            email: email.text,
+                                            dateOfBirth: DateTime.parse(
+                                              dOBCon.text,
+                                            ),
+                                            password: password.text,
+                                          )
+                                  : null,
+                              child: Text(
+                                state.signIn ? 'Sign In' : 'Sign Up',
+                                style: TextStyle(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
                                 ),
                               ),
                             ),
@@ -198,6 +166,40 @@ class AuthFeatureScreen extends HookWidget {
                     ),
                   ),
                 ),
+              ),
+              BlocBuilder<AuthCubit, AuthState>(
+                buildWhen: (previous, current) => current is AuthInitialState,
+                builder: (context, state) {
+                  return SegmentedButton(
+                    style: ButtonStyle(
+                      animationDuration: Duration(milliseconds: 500),
+                      side: .all(.none),
+                      padding: .all(.symmetric(horizontal: 16)),
+                      textStyle: .all(Theme.of(context).textTheme.titleMedium),
+                      foregroundColor: .all(
+                        Theme.of(context).colorScheme.onSurface,
+                      ),
+                      backgroundColor: WidgetStateProperty.resolveWith<Color>((
+                        states,
+                      ) {
+                        if (states.contains(WidgetState.selected)) {
+                          return Theme.of(
+                            context,
+                          ).colorScheme.primary; // Color when selected
+                        }
+                        return Colors.transparent; // Color when unselected
+                      }),
+                    ),
+                    showSelectedIcon: false,
+                    segments: [
+                      ButtonSegment(value: true, label: Text('Sign In')),
+                      ButtonSegment(value: false, label: Text('Sign Up')),
+                    ],
+                    selected: {state.signIn},
+                    onSelectionChanged: (value) =>
+                        authCubit.toggleSign(value.last),
+                  );
+                },
               ),
             ],
           ),

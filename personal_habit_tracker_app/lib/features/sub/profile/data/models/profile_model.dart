@@ -12,6 +12,8 @@ abstract class ProfileModel with _$ProfileModel {
     required String name,
     required String email,
     required DateTime dateOfBirth,
+    required int totalHabits,
+    required int noOfCompletes
   }) = _ProfileModel;
 
   factory ProfileModel.fromJson(Map<String, Object?> json) =>
@@ -25,6 +27,8 @@ extension ProfileModelMapper on ProfileModel {
       name: name,
       email: email,
       dateOfBirth: dateOfBirth,
+      noOfCompletes: noOfCompletes,
+      totalHabits: totalHabits,
     );
   }
 }

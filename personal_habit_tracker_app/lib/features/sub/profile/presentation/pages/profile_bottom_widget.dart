@@ -44,6 +44,20 @@ class ProfileBottomWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
+          ListTile(
+            title: Text('Total Habits', style: Theme.of(context).textTheme.titleMedium),
+            subtitle: Text(
+              profileEntity.totalHabits.toString(),
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ),
+          ListTile(
+            title: Text('No. Of Completions', style: Theme.of(context).textTheme.titleMedium),
+            subtitle: Text(
+              profileEntity.noOfCompletes.toString(),
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ),
         ],
       ),
     );

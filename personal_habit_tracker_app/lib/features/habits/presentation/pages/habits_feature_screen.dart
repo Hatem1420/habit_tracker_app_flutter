@@ -22,6 +22,33 @@ class HabitsFeatureScreen extends StatelessWidget {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        shape: CircleBorder(),
+        onPressed: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              shape: OutlineInputBorder(),
+              backgroundColor: Colors.white,
+              content: Column(
+                crossAxisAlignment: .center,
+                children: [
+                  SizedBox(height: 32),
+                  TextField(controller: controller),
+                  SizedBox(height: 32),
+                  ElevatedButton(
+                    onPressed: () {
+                      cubit.addNewHabit(controller.text);
+                    },
+                    child: Text('Save'),
+                  ),
+                  SizedBox(height: 32),
+                ],
+              ),
+            ),
+          );
+        },
+        child: Icon(Icons.add),
+      ),
       body: BlocBuilder<HabitsCubit, HabitsState>(
         builder: (context, state) {
           switch (state) {
@@ -58,7 +85,7 @@ class HabitsFeatureScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 8),
-                  ElevatedButton.icon(
+                  /* ElevatedButton.icon(
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -83,7 +110,7 @@ class HabitsFeatureScreen extends StatelessWidget {
                       );
                     },
                     label: Text('add'),
-                  ),
+                  ), */
                   SizedBox(height: 16),
                 ],
               );

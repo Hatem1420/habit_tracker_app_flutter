@@ -16,10 +16,9 @@ class HabitsFeatureScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<HabitsCubit>();
-    // DateTime? pickedDate;
-    // String formattedDate = "${pickedDate!.year}-${pickedDate.month}${pickedDate.day}";
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text('Habits Feature Screen'),
         leading: ProfileFeatureWidget(),
@@ -38,25 +37,18 @@ class HabitsFeatureScreen extends HookWidget {
                     mainAxisAlignment: .center,
                     crossAxisAlignment: .center,
                     children: [
+                      Gap(40.sh),
                       const Center(child: Text(" No items yet ...")),
                       Spacer(),
                       ElevatedButton.icon(
                         onPressed: () {
                           context.showBottomSheet(
+                            height: 50.sh,
                             widget: BlocProvider.value(
                               value: context.read<HabitsCubit>(),
                               child: const AddHabitBottomSheet(),
                             ),
                           );
-                          /* showModalBottomSheet(
-                            context: context,
-                            builder: (_) {
-                              return BlocProvider.value(
-                                value: context.read<HabitsCubit>(),
-                                child: const AddHabitBottomSheet(),
-                              );
-                            },
-                          ); */
                         },
                         label: const Text('Add'),
                       ),
@@ -64,42 +56,98 @@ class HabitsFeatureScreen extends HookWidget {
                     ],
                   );
                 }
-                // cubit.addNewHabit("habit 4");
                 return Column(
                   children: [
                     Expanded(
-                      child: Card(
-                        margin: .symmetric(horizontal: 16, vertical: 8),
-                        child: ListView.separated(
-                          separatorBuilder: (context, index) => Gap(10),
-                          itemCount: state.habitsList.length,
-                          itemBuilder: (context, index) {
-                            final habit = state.habitsList[index];
-                            final title = habit.title;
-                            final createdAt = habit
-                                .createdAt; // Replace with actual createdAt value
-                            // bool isComplete = false;
+                      child: ListView.separated(
+                        padding: const EdgeInsets.all(8),
 
-                            // Replace with actual completion status
-                            return ListTile(
-                              title: Text(title),
-                              subtitle: Text('Created at: $createdAt'),
-                              trailing: IconButton(
-                                icon: IconButton(
-                                  onPressed: () =>
-                                      context.push(Routes.habitLogs),
-                                  icon: Icon(Icons.more_vert),
+                        separatorBuilder: (context, index) => const Gap(10),
+
+                        itemCount: state.habitsList.length,
+
+                        itemBuilder: (context, index) {
+                          final habit = state.habitsList[index];
+
+                          return Container(
+                            padding: const EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(18),
+                              border: Border.all(
+                                color: const Color(0xffEAE6F5),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xffE8E0F8),
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                  child: const Icon(
+                                    Icons.local_fire_department_rounded,
+                                    color: Color(0xff7261F6),
+                                  ),
                                 ),
-                                onPressed: () {
-                                  // context.push((Routes.));
-                                },
-                              ), //Icons.density_small
-                            );
-                          },
-                        ),
+
+                                const Gap(12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        habit.title,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        'Created at: ${habit.createdAt}',
+                                        style: const TextStyle(
+                                          fontSize: 13,
+                                          color: Color(0xff8D8896),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(
+                                        Icons.more_vert,
+                                        color: Color(0xff7261F6),
+                                      ),
+                                      onPressed: () {
+                                        context.push(Routes.habitLogs);
+                                      },
+                                    ),
+
+                                    IconButton(
+                                      icon: const Icon(
+                                        Icons.delete_outline,
+                                        color: Colors.red,
+                                      ),
+                                      onPressed: () {
+                                        cubit.deleteHabit(habit.id);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        },
                       ),
                     ),
-
                     ElevatedButton.icon(
                       onPressed: () {
                         context.showBottomSheet(
@@ -109,15 +157,6 @@ class HabitsFeatureScreen extends HookWidget {
                             child: const AddHabitBottomSheet(),
                           ),
                         );
-                        /* showModalBottomSheet(
-                          context: context,
-                          builder: (_) {
-                            return BlocProvider.value(
-                              value: context.read<HabitsCubit>(),
-                              child: const AddHabitBottomSheet(),
-                            );
-                          },
-                        ); */
                       },
                       label: const Text('Add'),
                     ),

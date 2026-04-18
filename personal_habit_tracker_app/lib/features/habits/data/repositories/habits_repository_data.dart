@@ -16,8 +16,6 @@ class HabitsRepositoryData implements HabitsRepositoryDomain{
 
 @override
   Future<Result<List<HabitsEntity>, Failure>> getHabits() async {
-    // final response = await remoteDataSource.getHabits();
-    // return Success(response.map((e) => e.toEntity()).toList());
     try {
       final response = await remoteDataSource.getHabits();
       return Success(response.map((e) => e.toEntity()).toList());
@@ -31,7 +29,16 @@ class HabitsRepositoryData implements HabitsRepositoryDomain{
     try {
       await remoteDataSource.addHabit(title);
     } catch (error) {
-      print("Error adding habit: ${error.toString()}");
+      // print("Error adding habit: ${error.toString()}");
+    }
+  }
+
+  @override
+  Future<void> deleteHabit(String id) async {
+    try {
+      await remoteDataSource.deleteHabit(id);
+    } catch (error) {
+      // print("Error adding habit: ${error.toString()}");
     }
   }
 }

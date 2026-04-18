@@ -21,8 +21,6 @@ class HabitsRemoteDataSource implements BaseHabitsRemoteDataSource {
 
     @override
   Future<List<HabitsModel>> getHabits() async {
-  // final userId = _supabase.auth.currentUser?.id;
-  // final userId = userService.user?.id;
   final userId = userService.user?.id;
   try{
     final response = await _supabase.from('habits').select('*').eq('user_id',userId!);   //293c1e23-8b30-468b-8b71-e8c2e4de01d6
@@ -32,11 +30,7 @@ class HabitsRemoteDataSource implements BaseHabitsRemoteDataSource {
     print("Error fetching habits: ${e.toString()}");
     return [];
   }
-    // try {
-    //   return HabitsModel(id: 1, firstName: "Last Name", lastName: "First Name");
-    // } catch (error) {
-    //  throw FailureExceptions.getException(error);
-    // }
+    
   }
 
 
@@ -45,7 +39,7 @@ Future<void> addHabit(String title) async {
   final userId = userService.user?.id;
   await _supabase.from('habits').insert({
     'title': title,
-    'user_id': userId, // 293c1e23-8b30-468b-8b71-e8c2e4de01d6      //'293c1e23-8b30-468b-8b71-e8c2e4de01d6'
+    'user_id': userId,
   });
 }
 

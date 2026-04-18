@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_habit_tracker_app/features/habits/domain/use_cases/habits_use_case.dart';
 import 'package:personal_habit_tracker_app/features/habits/presentation/cubit/habits_state.dart';
@@ -14,7 +16,6 @@ class HabitsCubit extends Cubit<HabitsState> {
         emit(HabitsSuccessState(habitsList: success));
       },
       (whenError) {
-        print (whenError.message);
        emit(HabitsErrorState(message: whenError.message));
       },
     );
@@ -22,8 +23,21 @@ class HabitsCubit extends Cubit<HabitsState> {
 
   Future<void> addNewHabit(String title) async {
   await _habitsUseCase.addHabit(title); 
+  emit(HabitsInitialState());
   getHabitsMethod(); 
 }
+
+
+  Future<void> deleteHabit (String id) async {
+    try {
+    await _habitsUseCase.deleteHabit(id); 
+
+    await getHabitsMethod(); 
+
+  } catch (e) {
+    emit(HabitsErrorState(message: e.toString()));
+  }
+  }
 
 
   @override

@@ -17,4 +17,8 @@ class HabitsUseCase {
   Future<void> addHabit(String title) async {
     await _repositoryData.addHabit(title);
   }
+
+   Future<void> deleteHabit(String id) async {
+    await _repositoryData.deleteHabit(id);
+}
 }

@@ -1,7 +1,6 @@
 import 'package:personal_habit_tracker_app/features/habits/domain/entities/habits_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'habits_model.freezed.dart';
-// part 'habits_model.g.dart';
 
 @freezed
 abstract class HabitsModel with _$HabitsModel {
@@ -19,7 +18,6 @@ abstract class HabitsModel with _$HabitsModel {
       createdAt: json['created_at'] as String,);
     }
 catch (e) {
-    print(" error ....  $e");
       rethrow;
   }
 }

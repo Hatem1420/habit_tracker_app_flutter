@@ -5,4 +5,5 @@ import 'package:personal_habit_tracker_app/features/habits/domain/entities/habit
 abstract class HabitsRepositoryDomain {
     Future<Result<List<HabitsEntity>, Failure>> getHabits();
     Future<void> addHabit(String title);
+    Future<void> deleteHabit(String id);
 }

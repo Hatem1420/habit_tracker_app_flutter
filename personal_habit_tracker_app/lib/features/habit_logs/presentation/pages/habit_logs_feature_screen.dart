@@ -29,10 +29,7 @@ class HabitLogsFeatureScreen extends HookWidget {
         backgroundColor: const Color(0xffF7F5FB),
         title: const Text(
           'Habit Logs',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w700,
-          ),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
         ),
       ),
       body: Padding(
@@ -85,9 +82,7 @@ class HabitLogsFeatureScreen extends HookWidget {
 
                       return HabitLogCard(
                         title: habit.title,
-                        date: (latestLog?.logDate ??
-                                habit.createdAt ??
-                                'No date')
+                        date: (latestLog?.logDate ?? habit.createdAt)
                             .toString()
                             .split('T')
                             .first,
@@ -113,8 +108,9 @@ class HabitLogsFeatureScreen extends HookWidget {
                                         height: 70,
                                         decoration: BoxDecoration(
                                           color: const Color(0xffE8E0F8),
-                                          borderRadius:
-                                              BorderRadius.circular(22),
+                                          borderRadius: BorderRadius.circular(
+                                            22,
+                                          ),
                                         ),
                                         child: const Icon(
                                           Icons.check_circle_outline_rounded,
@@ -154,12 +150,14 @@ class HabitLogsFeatureScreen extends HookWidget {
                                                 ),
                                                 padding:
                                                     const EdgeInsets.symmetric(
-                                                  vertical: 14,
-                                                ),
+                                                      vertical: 14,
+                                                    ),
                                               ),
                                               onPressed: () {
                                                 Navigator.pop(
-                                                    dialogContext, false);
+                                                  dialogContext,
+                                                  false,
+                                                );
                                               },
                                               child: const Text('Cancel'),
                                             ),
@@ -168,8 +166,9 @@ class HabitLogsFeatureScreen extends HookWidget {
                                           Expanded(
                                             child: ElevatedButton(
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    const Color(0xff7261F6),
+                                                backgroundColor: const Color(
+                                                  0xff7261F6,
+                                                ),
                                                 foregroundColor: Colors.white,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
@@ -177,12 +176,14 @@ class HabitLogsFeatureScreen extends HookWidget {
                                                 ),
                                                 padding:
                                                     const EdgeInsets.symmetric(
-                                                  vertical: 14,
-                                                ),
+                                                      vertical: 14,
+                                                    ),
                                               ),
                                               onPressed: () {
                                                 Navigator.pop(
-                                                    dialogContext, true);
+                                                  dialogContext,
+                                                  true,
+                                                );
                                               },
                                               child: const Text('Yes'),
                                             ),
@@ -197,9 +198,9 @@ class HabitLogsFeatureScreen extends HookWidget {
                           );
 
                           if (confirmed == true) {
-                            await context
-                                .read<HabitLogsCubit>()
-                                .addHabitLog(habit.id);
+                            await context.read<HabitLogsCubit>().addHabitLog(
+                              habit.id,
+                            );
                           }
                         },
                       );

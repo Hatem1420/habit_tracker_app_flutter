@@ -4,4 +4,8 @@ import 'package:personal_habit_tracker_app/features/habit_logs/domain/entities/h
 
 abstract class HabitLogsRepositoryDomain {
   Future<Result<List<HabitLogsEntity>, Failure>> getHabitLogs();
+
+  Future<Result<void, Failure>> addHabitLog({
+    required String habitId,
+  });
 }

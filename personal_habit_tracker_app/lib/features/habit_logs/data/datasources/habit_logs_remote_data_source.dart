@@ -7,6 +7,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class BaseHabitLogsRemoteDataSource {
   Future<List<HabitLogsModel>> getHabitLogs();
+
+  Future<void> addHabitLog({required String habitId});
 }
 
 @LazySingleton(as: BaseHabitLogsRemoteDataSource)
@@ -19,17 +21,35 @@ class HabitLogsRemoteDataSource implements BaseHabitLogsRemoteDataSource {
   @override
   Future<List<HabitLogsModel>> getHabitLogs() async {
     try {
-      //!---------- here you use _userService
+      final userId = _userService.user!.id;
+
 
       final response = await _supabase
           .from('habits')
           .select(
             'id, title, created_at, habit_logs(id, habit_id, log_date, is_completed)',
-          );
+          )
+          .eq('user_id', userId);
 
       return response
           .map<HabitLogsModel>((item) => HabitLogsModel.fromJson(item))
           .toList();
+    } catch (error) {
+      throw FailureExceptions.getException(error);
+    }
+  }
+
+  @override
+  Future<void> addHabitLog({required String habitId}) async {
+    try {
+      final now = DateTime.now();
+
+      await _supabase.from('habit_logs').insert({
+        'habit_id': habitId,
+        'log_date':
+            '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}',
+        'is_completed': true,
+      });
     } catch (error) {
       throw FailureExceptions.getException(error);
     }

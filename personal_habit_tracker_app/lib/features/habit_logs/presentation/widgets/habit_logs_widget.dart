@@ -1,35 +1,22 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-class HabitLogCard extends StatefulWidget {
+class HabitLogCard extends StatelessWidget {
   const HabitLogCard({
     super.key,
     required this.title,
     required this.date,
     required this.isCompleted,
+    required this.onChanged,
   });
 
   final String title;
   final String date;
   final bool isCompleted;
-
-  @override
-  State<HabitLogCard> createState() => _HabitLogCardState();
-}
-
-class _HabitLogCardState extends State<HabitLogCard> {
-  late bool isChecked;
-
-  @override
-  void initState() {
-    super.initState();
-    isChecked = widget.isCompleted;
-  }
+  final ValueChanged<bool?>? onChanged;
 
   @override
   Widget build(BuildContext context) {
-    final completed = isChecked;
+    final completed = isCompleted;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
@@ -72,7 +59,7 @@ class _HabitLogCardState extends State<HabitLogCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.title,
+                    title,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
@@ -82,7 +69,7 @@ class _HabitLogCardState extends State<HabitLogCard> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Date: ${widget.date}',
+                    'Date: $date',
                     style: const TextStyle(
                       fontSize: 14,
                       color: Color(0xff8D8896),
@@ -119,7 +106,7 @@ class _HabitLogCardState extends State<HabitLogCard> {
           Transform.scale(
             scale: 1.2,
             child: Checkbox(
-              value: isChecked,
+              value: isCompleted,
               activeColor: const Color(0xffA7A1AE),
               checkColor: Colors.white,
               side: const BorderSide(
@@ -129,13 +116,7 @@ class _HabitLogCardState extends State<HabitLogCard> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(6),
               ),
-              onChanged: isChecked
-                  ? null
-                  : (value) {
-                      setState(() {
-                        isChecked = value ?? false;
-                      });
-                    },
+              onChanged: isCompleted ? null : onChanged,
             ),
           ),
         ],

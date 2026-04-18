@@ -14,5 +14,9 @@ class HabitLogsUseCase {
     return _repositoryData.getHabitLogs();
   }
 
-  
+  Future<Result<void, Failure>> addHabitLog({
+    required String habitId,
+  }) async {
+    return _repositoryData.addHabitLog(habitId: habitId);
+  }
 }

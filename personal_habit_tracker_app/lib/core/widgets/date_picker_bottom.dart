@@ -18,7 +18,6 @@ class DatePickerBottom extends StatelessWidget {
           primaryColor: Theme.of(context).primaryColor,
           dateTimePickerTextStyle: Theme.of(context).textTheme.bodyLarge,
         ),
-        //buttonStyle: BoxDecoration(color: Theme.of(context).splashColor),
         headerBuilder: (context) {
           return Text(
             'When did you born ?',

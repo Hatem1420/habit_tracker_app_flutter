@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:personal_habit_tracker_app/core/widgets/loading_widget.dart';
 import 'package:personal_habit_tracker_app/features/habit_logs/presentation/cubit/habit_logs_cubit.dart';
 import 'package:personal_habit_tracker_app/features/habit_logs/presentation/cubit/habit_logs_state.dart';
 import 'package:personal_habit_tracker_app/features/habit_logs/presentation/widgets/habit_logs_widget.dart';
@@ -27,20 +28,15 @@ class _HabitLogsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF7F5FB),
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        backgroundColor: const Color(0xffF7F5FB),
-        title: const Text(
-          'Habit Logs',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
-        ),
+        title: const Text('Habit Logs'),
       ),
       body: BlocBuilder<HabitLogsCubit, HabitLogsState>(
         builder: (context, state) {
           if (state is HabitLogsLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const LoadingWidget();
           }
 
           if (state is HabitLogsError) {
@@ -210,7 +206,7 @@ class _HabitLogsView extends StatelessWidget {
               child: ListView.separated(
                 padding: const EdgeInsets.all(16),
                 itemCount: logs.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 18),
+                separatorBuilder: (_, _) => const SizedBox(height: 18),
                 itemBuilder: (context, index) {
                   final log = logs[index];
 

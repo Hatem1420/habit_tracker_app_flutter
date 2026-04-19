@@ -10,35 +10,34 @@ class HabitsCubit extends Cubit<HabitsState> {
   HabitsCubit(this._habitsUseCase) : super(HabitsInitialState());
 
   Future<void> getHabitsMethod() async {
+    emit(HabitsInitialState());
     final result = await _habitsUseCase.getHabits();
     result.when(
       (success) {
         emit(HabitsSuccessState(habitsList: success));
       },
       (whenError) {
-       emit(HabitsErrorState(message: whenError.message));
+        emit(HabitsErrorState(message: whenError.message));
       },
     );
   }
 
   Future<void> addNewHabit(String title) async {
-  await _habitsUseCase.addHabit(title); 
-  emit(HabitsInitialState());
-  getHabitsMethod(); 
-}
+    emit(HabitsInitialState());
+    await _habitsUseCase.addHabit(title);
+    getHabitsMethod();
+  }
 
-
-  Future<void> deleteHabit (String id) async {
+  Future<void> deleteHabit(String id) async {
+    emit(HabitsInitialState());
     try {
-    await _habitsUseCase.deleteHabit(id); 
+      await _habitsUseCase.deleteHabit(id);
 
-    await getHabitsMethod(); 
-
-  } catch (e) {
-    emit(HabitsErrorState(message: e.toString()));
+      await getHabitsMethod();
+    } catch (e) {
+      emit(HabitsErrorState(message: e.toString()));
+    }
   }
-  }
-
 
   @override
   Future<void> close() {

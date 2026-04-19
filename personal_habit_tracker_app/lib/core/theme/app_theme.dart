@@ -14,11 +14,13 @@ abstract class AppTheme {
       surface: AppColors.surface,
       error: AppColors.error,
     ),
+    disabledColor: AppColors.disabled,
     scaffoldBackgroundColor: AppColors.background,
     textTheme: AppTextTheme.lightTextTheme,
     appBarTheme: const AppBarTheme(
-      backgroundColor: AppColors.surface,
+      backgroundColor: Colors.transparent,
       elevation: 0,
+      scrolledUnderElevation: 0,
       centerTitle: true,
       iconTheme: IconThemeData(color: AppColors.textPrimary),
     ),
@@ -49,15 +51,18 @@ abstract class AppTheme {
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
-
     colorScheme: ColorScheme.dark(
       primary: AppColors.primary,
       secondary: AppColors.secondary,
       surface: const Color(0xFF1F2937),
       error: AppColors.error,
     ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      scrolledUnderElevation: 0,
+    ),
     scaffoldBackgroundColor: const Color(0xFF111827),
     textTheme: AppTextTheme.darkTextTheme,
   );
 }
-

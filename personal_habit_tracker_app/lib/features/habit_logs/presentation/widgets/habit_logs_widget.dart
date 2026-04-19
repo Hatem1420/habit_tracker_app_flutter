@@ -17,16 +17,19 @@ class HabitLogCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final completed = isCompleted;
+    final completedColor = completed
+        ? Theme.of(context).disabledColor
+        : const Color(0xffE8E0F8);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
       decoration: BoxDecoration(
-        color: completed ? const Color(0xffECE7F7) : Colors.white,
+        color: completed ? Theme.of(context).disabledColor : null,
         borderRadius: BorderRadius.circular(28),
         border: Border.all(
           color: completed
-              ? const Color(0xffCDBEF4)
-              : const Color(0xffEAE6F5),
+              ? Theme.of(context).disabledColor
+              : Theme.of(context).colorScheme.outline,
           width: 1.2,
         ),
         boxShadow: [
@@ -43,9 +46,7 @@ class HabitLogCard extends StatelessWidget {
             width: 72,
             height: 72,
             decoration: BoxDecoration(
-              color: completed
-                  ? const Color(0xffDFECE4)
-                  : const Color(0xffE8E0F8),
+              color: completedColor,
               borderRadius: BorderRadius.circular(22),
             ),
             child: Center(
@@ -54,7 +55,7 @@ class HabitLogCard extends StatelessWidget {
                 size: 34,
                 color: completed
                     ? const Color(0xff35A55C)
-                    : const Color(0xff7261F6),
+                    : Theme.of(context).colorScheme.primary,
               ),
             ),
           ),
@@ -67,12 +68,7 @@ class HabitLogCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color:
-                          completed ? const Color(0xff6E6A73) : Colors.black87,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -90,9 +86,7 @@ class HabitLogCard extends StatelessWidget {
                       vertical: 8,
                     ),
                     decoration: BoxDecoration(
-                      color: completed
-                          ? const Color(0xffDDF1E3)
-                          : const Color(0xffE8E0F8),
+                      color: completedColor,
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: Text(
@@ -102,7 +96,7 @@ class HabitLogCard extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                         color: completed
                             ? const Color(0xff35A55C)
-                            : const Color(0xff7261F6),
+                            : Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ),
@@ -116,8 +110,8 @@ class HabitLogCard extends StatelessWidget {
               value: isCompleted,
               activeColor: const Color(0xffA7A1AE),
               checkColor: Colors.white,
-              side: const BorderSide(
-                color: Colors.black,
+              side: BorderSide(
+                color: Theme.of(context).colorScheme.onSurface,
                 width: 2,
               ),
               shape: RoundedRectangleBorder(

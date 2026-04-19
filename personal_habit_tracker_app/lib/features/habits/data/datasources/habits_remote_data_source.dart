@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:injectable/injectable.dart';
 import 'package:personal_habit_tracker_app/core/services/user_service.dart';
 import 'package:personal_habit_tracker_app/features/habits/data/models/habits_model.dart';
@@ -26,7 +28,7 @@ class HabitsRemoteDataSource implements BaseHabitsRemoteDataSource {
           .eq('user_id', userId!);
       return (response as List).map((e) => HabitsModel.fromJson(e)).toList();
     } catch (e) {
-      print("Error fetching habits: ${e.toString()}");
+      log("Error fetching habits: ${e.toString()}");
       return [];
     }
   }

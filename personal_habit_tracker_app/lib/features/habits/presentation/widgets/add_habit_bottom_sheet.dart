@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:personal_habit_tracker_app/features/habits/presentation/cubit/habits_cubit.dart';
 
 class AddHabitBottomSheet extends HookWidget {
@@ -12,40 +13,36 @@ class AddHabitBottomSheet extends HookWidget {
     final cubit = context.read<HabitsCubit>();
     final textController = useTextEditingController();
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text('Add New Habit', style: TextStyle(fontSize: 20)),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text('Add New Habit', style: TextStyle(fontSize: 20)),
 
-          Gap(16),
+        Gap(16),
 
-          TextField(
-            controller: textController,
-            decoration: const InputDecoration(labelText: 'Habit title'),
+        TextField(
+          controller: textController,
+          decoration: const InputDecoration(labelText: 'Habit title'),
+        ),
+
+        Gap(40),
+
+        FilledButton(
+          onPressed: () {
+            if (textController.text.isEmpty) {
+              return;
+            }
+
+            cubit.addNewHabit(textController.text);
+
+            context.pop(context);
+          },
+          style: ButtonStyle(
+            foregroundColor: .all(Theme.of(context).colorScheme.onSurface),
           ),
-
-          Gap(40),
-
-          ElevatedButton(
-            onPressed: () {
-              if (textController.text.isEmpty) {
-                return;
-              }
-
-              cubit.addNewHabit(textController.text);
-
-              Navigator.pop(context);
-            },
-            child: const Text('Save'),
-          ),
-        ],
-      ),
+          child: const Text('Save'),
+        ),
+      ],
     );
   }
 }

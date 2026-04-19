@@ -10,6 +10,7 @@ class HabitLogsCubit extends Cubit<HabitLogsState> {
   HabitLogsCubit(this._habitLogsUseCase) : super(HabitLogsInitial());
 
   Future<void> getHabitLogsMethod() async {
+    emit(HabitLogsLoading());
     final result = await _habitLogsUseCase.getHabitLogs();
 
     result.when(
@@ -23,9 +24,7 @@ class HabitLogsCubit extends Cubit<HabitLogsState> {
   }
 
   Future<void> addHabitLog(String habitId) async {
-    final result = await _habitLogsUseCase.addHabitLog(
-      habitId: habitId,
-    );
+    final result = await _habitLogsUseCase.addHabitLog(habitId: habitId);
 
     result.when(
       (_) async {

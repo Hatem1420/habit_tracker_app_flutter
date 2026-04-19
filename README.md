@@ -1,88 +1,152 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/-_M83IEE)
-## Personal Habit Tracker AppAssignment 📝🈂️
-### 🚀 Weekend Project: Personal Habit Tracker App
-Overall Project Goal: Build a complete daily habit tracking application to master basic CRUD operations, link tables with the Authentication system (Auth), and implement all of this within a Flutter environment using Clean Architecture and State Management with BLoC or Cubit.
+# 🧠 Personal Habit Tracker App
+
+A modern Flutter-based habit tracking application designed to help users build consistency, track progress, and develop positive routines through a clean UI and structured data tracking.
 
 ---
 
-## 🛠 Technologies Used
-##### 1. Frontend & App: Flutter
+## 🚀 Overview
 
-##### 2. State Management: BLoC / Cubit
+The Personal Habit Tracker App enables users to create, manage, and monitor their daily habits efficiently. It focuses on simplicity, performance, and scalability while leveraging modern Flutter architecture and backend integration.
 
-##### 3. Architecture: Clean Architecture
+The app is designed to:
 
-##### 4. Backend & Database: Supabase (Auth, Postgres)
-
-## 🗄️ Database Requirements (Supabase Schema)
-Students must build the following tables in Supabase and set up the relationships between them:
-
-#### 1.  profiles Table (Optional / Bonus):
-
-* id (UUID - Primary Key - Foreign Key to auth.users.id)
-
-* username (Text)
-
-* created_at (Timestamp)
-
-#### 2.  habits Table:
-
-* id (UUID - Primary Key)
-
-* title (Text - Habit name)
-
-* user_id (UUID - Foreign Key to auth.users.id)
-
-* created_at (Timestamp)
-
-#### 3.  habit_logs Table:
-
-* id (UUID - Primary Key)
-
-* habit_id (UUID - Foreign Key to habits.id - Cascade Delete)
-
-* log_date (Date)
-
-* is_completed (Boolean - Default: false)
-
-## 📱 Programming Requirements (Features & UI)
-### Authentication:
-
-Login and Sign Up interfaces using Email and Password.
-
-### Habits Management:
-
-* An interface to display the list of added habits for the currently logged-in user.
-
-* Ability to add a new habit (e.g., Drinking water, Reading, Walking).
-
-* Ability to delete a habit (ensuring its associated logs are automatically deleted).
-
-### Daily Logging:
-
-Next to each habit in the list, provide a button or Checkbox to mark whether the habit was completed for the day.
+* Track daily habit completion
+* Store logs and progress over time
+* Provide insights into user consistency
+* Support authentication and user-based data
 
 ---
 
-## 🧩 Advanced Technical Challenge (Join Query)
-Instead of making two separate queries (one to fetch habits, and another to fetch logs), the student is required to:
-* Write a single Join query in Supabase to fetch the "Habit" along with its "Completion Logs" in one combined list.
+## ✨ Features
 
- **Hint for students:🎭** Look up how to use foreign tables relationships in the supabase-flutter package to fetch nested data like this: supabase.from('habits').select(', habit_logs()').
+### 🔐 Authentication
+
+* Secure user authentication (Email / OAuth)
+* Session persistence
+* User-specific data isolation
+
+### 📋 Habit Management
+
+* Create, update, and delete habits
+* Assign habits to specific users
+* Flexible habit structure (daily tracking)
+
+### ✅ Habit Logs
+
+* Mark habits as completed
+* Store completion logs with timestamps
+* Track completion history
+
+### 📊 Progress Tracking
+
+* Count completed logs per habit
+* Aggregate statistics (e.g., total completed habits)
+* Prepare data for charts and analytics
+
+### 🔄 Real-time Data Handling
+
+* Sync habit logs with backend
+* Reactive UI updates
 
 ---
 
-## 🏗️ Evaluation Criteria (Clean Architecture)
-The project will not be evaluated based on the UI alone, but on the code quality and structure:
+## 🏗️ Architecture
 
-#### * **Data Layer:** Must contain separate AuthRepository and HabitsRepository that interact directly with Supabase.
+The project follows a clean and scalable architecture:
 
-#### * **Domain Layer:** Must contain the Models or Entities for Habits and Logs.
-
-#### * **Presentation Layer:** The User Interface (UI) must not contain any database-related code. Communication must be handled exclusively through Cubit or BLoC.
-
-#### Error Handling: Display clear error messages to the user in case of login failure or data fetching failure.
-
-Good luck to everyone, we look forward to seeing your creations! 🚀
+```
+lib/
+├── core/            # shared utilities, constants
+├── data/            # models, data sources
+├── domain/          # business logic (entities/use cases)
+├── presentation/    # UI + controllers (GetX / Bloc)
+├── services/        # API / Supabase integration
+└── main.dart
+```
 
 ---
+
+## 🛠️ Tech Stack
+
+* **Flutter** – Cross-platform UI framework
+* **Dart** – Programming language
+* **Supabase** – Backend (Auth + Database + Realtime)
+* **PostgreSQL** – Relational database
+* **GetX / Bloc** – State management
+
+---
+
+## 📱 App Screens
+<p align="center">
+  <img width="200" alt="WhatsApp Image 2026-04-19 at 3 14 24 AM" src="https://github.com/user-attachments/assets/b5116421-b623-453c-942a-bebcf00189a6" />
+<img width="200" alt="WhatsApp Image 2026-04-19 at 3 14 25 AM" src="https://github.com/user-attachments/assets/2f8a0a36-1824-4d73-a242-080eb4db69ee" />
+<img width="200"  alt="WhatsApp Image 2026-04-19 at 3 14 25 AM (1)" src="https://github.com/user-attachments/assets/905e6701-fb8a-48ec-bb25-156fadcd9821" />
+<img width="200"  alt="WhatsApp Image 2026-04-19 at 3 14 25 AM (2)" src="https://github.com/user-attachments/assets/377b25ff-90ec-49b8-aa4c-3c76225bc16c" />
+</p>
+
+
+
+---
+
+## 🗄️ Database Design
+
+### Users Table
+
+* Stores user profile data
+* Linked to `auth.users`
+
+### Habits Table
+
+* Each habit belongs to a user
+
+### Habit Logs Table
+
+* Stores completion logs
+* Linked to habits
+
+---
+
+## 🔗 Relationships
+
+* One User → Many Habits
+* One Habit → Many Logs
+
+---
+
+## 📱 Getting Started
+
+### Prerequisites
+
+* Flutter SDK
+* Supabase project
+* Android Studio / VS Code
+
+---
+
+### Installation
+
+```bash
+git clone https://github.com/flutter-gg-2026/personal-habit-tracker-app-the-incredibles.git
+cd personal-habit-tracker-app-the-incredibles
+flutter pub get
+```
+
+---
+
+### Run the App
+
+```bash
+flutter run
+```
+
+---
+
+## 🔑 Environment Setup
+
+Create a `.env` file and add:
+
+```
+SUPABASE_URL=your_url
+SUPABASE_ANON_KEY=your_key
+```
+

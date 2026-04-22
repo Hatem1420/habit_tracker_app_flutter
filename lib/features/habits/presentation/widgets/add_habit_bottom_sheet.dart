@@ -37,9 +37,6 @@ class AddHabitBottomSheet extends HookWidget {
 
             context.pop(context);
           },
-          style: ButtonStyle(
-            foregroundColor: .all(Theme.of(context).colorScheme.onSurface),
-          ),
           child: const Text('Save'),
         ),
       ],

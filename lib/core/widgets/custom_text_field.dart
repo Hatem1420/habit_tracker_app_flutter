@@ -21,14 +21,18 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: 400),
-      child: TextFormField(
-        controller: controller,
-        keyboardType: textInputType,
-        textInputAction: textInputAction,
-        decoration: InputDecoration(label: Text(label)),
-        onTapOutside: (event) => FocusScope.of(context).unfocus(),
-        validator: validator,
-        readOnly: readOnly ?? false,
+      child: Padding(
+        padding: const EdgeInsets.all(3.0),
+        child: TextFormField(
+          controller: controller,
+          keyboardType: textInputType,
+          textInputAction: textInputAction,
+          decoration: InputDecoration(label: Text(label)),
+          clipBehavior: .none,
+          onTapOutside: (event) => FocusScope.of(context).unfocus(),
+          validator: validator,
+          readOnly: readOnly ?? false,
+        ),
       ),
     );
   }

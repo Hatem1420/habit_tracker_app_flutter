@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 class SignSwitchWidget extends StatelessWidget {
   final bool signIn;
   final Function(bool) onChangeSelect;
-  const SignSwitchWidget({super.key, required this.signIn, required this.onChangeSelect});
+  const SignSwitchWidget({
+    super.key,
+    required this.signIn,
+    required this.onChangeSelect,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +17,11 @@ class SignSwitchWidget extends StatelessWidget {
         side: .all(.none),
         padding: .all(.symmetric(horizontal: 16)),
         textStyle: .all(Theme.of(context).textTheme.titleMedium),
-        foregroundColor: .all(Theme.of(context).colorScheme.onSurface),
+        foregroundColor: .resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? Theme.of(context).colorScheme.surface
+              : Theme.of(context).colorScheme.onSurface,
+        ),
         backgroundColor: .resolveWith(
           (states) => states.contains(WidgetState.selected)
               ? Theme.of(context).colorScheme.primary

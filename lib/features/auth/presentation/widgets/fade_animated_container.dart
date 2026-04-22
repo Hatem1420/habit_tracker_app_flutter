@@ -13,8 +13,8 @@ class FadeAnimatedContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedCrossFade(
       duration: Duration(milliseconds: 500),
-      sizeCurve: Curves.easeInOut,
-    //!--------------------------------
+      secondCurve: Curves.easeInBack,
+      sizeCurve: Curves.ease,
       crossFadeState: fade ? .showSecond : .showFirst,
       firstChild: widget,
       secondChild: SizedBox.shrink(),

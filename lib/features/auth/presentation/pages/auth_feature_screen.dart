@@ -34,7 +34,7 @@ class AuthFeatureScreen extends HookWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        toolbarHeight: 20, // Reduced to make room for content
+        toolbarHeight: 4.sh,
       ),
       body: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
@@ -50,19 +50,16 @@ class AuthFeatureScreen extends HookWidget {
         },
         child: Column(
           children: [
-            SizedBox(
-              height: 25.sh,
-              child: Center(
-                child: Lottie.asset(
-                  AppImages.welcome3,
-                  height: 22.sh,
-                  errorBuilder: (context, error, stackTrace) => Text(
-                    'Welcome!',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25.sp,
-                      color: Colors.white,
-                    ),
+            Center(
+              child: Lottie.asset(
+                AppImages.welcome3,
+                height: 22.sh,
+                errorBuilder: (context, error, stackTrace) => Text(
+                  'Welcome!',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25.sp,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -93,14 +90,15 @@ class AuthFeatureScreen extends HookWidget {
                             return Column(
                               spacing: 15,
                               children: [
-                                Text(
-                                  state.signIn
-                                      ? "Welcome Back"
-                                      : "Create Account",
-                                  style: TextStyle(
-                                    fontSize: 24.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black87,
+                                FadeAnimatedContainer(
+                                  fade: state.signIn,
+                                  widget: Text(
+                                    "Create Account",
+                                    style: TextStyle(
+                                      fontSize: 22.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black87,
+                                    ),
                                   ),
                                 ),
                                 const Gap(10),
@@ -158,11 +156,6 @@ class AuthFeatureScreen extends HookWidget {
                                       : null,
                                   child: Text(
                                     state.signIn ? 'Sign In' : 'Sign Up',
-                                    style: TextStyle(
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.onSurface,
-                                    ),
                                   ),
                                 ),
                               ],
@@ -174,7 +167,8 @@ class AuthFeatureScreen extends HookWidget {
                       const Gap(20),
 
                       BlocBuilder<AuthCubit, AuthState>(
-                        buildWhen: (previous, current) => current is AuthInitialState,
+                        buildWhen: (previous, current) =>
+                            current is AuthInitialState,
                         builder: (context, state) {
                           return SignSwitchWidget(
                             signIn: state.signIn,

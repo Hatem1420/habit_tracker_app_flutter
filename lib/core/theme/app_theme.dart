@@ -9,7 +9,7 @@ abstract class AppTheme {
     useMaterial3: true,
     brightness: Brightness.light,
     colorScheme: ColorScheme.light(
-      primary: AppColors.primary,
+      primary: Color(0xFFC09EF3),
       secondary: AppColors.secondary,
       surface: AppColors.surface,
       error: AppColors.error,

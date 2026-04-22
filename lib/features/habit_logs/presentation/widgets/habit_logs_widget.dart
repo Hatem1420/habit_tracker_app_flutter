@@ -29,12 +29,12 @@ class HabitLogCard extends StatelessWidget {
         border: Border.all(
           color: completed
               ? Theme.of(context).disabledColor
-              : Theme.of(context).colorScheme.outline,
+              : Theme.of(context).colorScheme.primary,
           width: 1.2,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(.03),
+            color: Colors.black.withValues(alpha: .03),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -108,10 +108,10 @@ class HabitLogCard extends StatelessWidget {
             scale: 1.2,
             child: Checkbox(
               value: isCompleted,
-              activeColor: const Color(0xffA7A1AE),
+              activeColor:Theme.of(context).colorScheme.primary,
               checkColor: Colors.white,
               side: BorderSide(
-                color: Theme.of(context).colorScheme.onSurface,
+                color: Theme.of(context).colorScheme.primary,
                 width: 2,
               ),
               shape: RoundedRectangleBorder(

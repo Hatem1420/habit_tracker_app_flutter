@@ -14,6 +14,7 @@ class FadeAnimatedContainer extends StatelessWidget {
     return AnimatedCrossFade(
       duration: Duration(milliseconds: 500),
       sizeCurve: Curves.easeInOut,
+    //!--------------------------------
       crossFadeState: fade ? .showSecond : .showFirst,
       firstChild: widget,
       secondChild: SizedBox.shrink(),

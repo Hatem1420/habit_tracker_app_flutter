@@ -13,6 +13,7 @@ abstract class AppTheme {
       secondary: AppColors.secondary,
       surface: AppColors.surface,
       error: AppColors.error,
+      primaryContainer: Colors.white,
     ),
     disabledColor: AppColors.disabled,
     scaffoldBackgroundColor: AppColors.background,
@@ -52,10 +53,11 @@ abstract class AppTheme {
     useMaterial3: true,
     brightness: Brightness.dark,
     colorScheme: ColorScheme.dark(
-      primary: AppColors.primary,
+      primary: Color(0xFFC09EF3),
       secondary: AppColors.secondary,
       surface: const Color(0xFF1F2937),
       error: AppColors.error,
+      primaryContainer: Color(0xFF1F2937),
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.transparent,
@@ -64,5 +66,27 @@ abstract class AppTheme {
     ),
     scaffoldBackgroundColor: const Color(0xFF111827),
     textTheme: AppTextTheme.darkTextTheme,
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primary,
+        foregroundColor: Colors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(color: AppColors.border),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(color: AppColors.border),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(color: AppColors.primary, width: 2),
+      ),
+    ),
   );
 }

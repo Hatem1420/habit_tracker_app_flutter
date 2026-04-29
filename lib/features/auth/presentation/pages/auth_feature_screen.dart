@@ -67,8 +67,8 @@ class AuthFeatureScreen extends HookWidget {
             Expanded(
               child: Container(
                 width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40),
@@ -97,7 +97,6 @@ class AuthFeatureScreen extends HookWidget {
                                     style: TextStyle(
                                       fontSize: 22.sp,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.black87,
                                     ),
                                   ),
                                 ),
@@ -135,6 +134,7 @@ class AuthFeatureScreen extends HookWidget {
                                   label: 'Password',
                                   controller: password,
                                   validator: Validators.validatePassword,
+                                  isObscure: state.signIn,
                                 ),
 
                                 FilledButton(

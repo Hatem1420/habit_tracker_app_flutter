@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:personal_habit_tracker_app/core/errors/network_exceptions.dart';
@@ -26,9 +27,9 @@ class HabitsRepositoryData implements HabitsRepositoryDomain {
   }
 
   @override
-  Future<void> addHabit(String title) async {
+  Future<void> addHabit(String title, Color color) async {
     try {
-      await remoteDataSource.addHabit(title);
+      await remoteDataSource.addHabit(title, color);
     } on Failure catch (_) {
       rethrow;
     } catch (error) {

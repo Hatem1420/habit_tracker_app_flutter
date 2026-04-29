@@ -7,6 +7,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final String? Function(String?)? validator;
   final bool? readOnly;
+  final bool? isObscure;
   const CustomTextField({
     super.key,
     required this.label,
@@ -14,7 +15,7 @@ class CustomTextField extends StatelessWidget {
     this.textInputType,
     this.textInputAction,
     this.validator,
-    this.readOnly,
+    this.readOnly, this.isObscure,
   });
 
   @override
@@ -22,7 +23,7 @@ class CustomTextField extends StatelessWidget {
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: 400),
       child: Padding(
-        padding: const EdgeInsets.all(3.0),
+        padding: const EdgeInsets.all(5),
         child: TextFormField(
           controller: controller,
           keyboardType: textInputType,
@@ -32,6 +33,7 @@ class CustomTextField extends StatelessWidget {
           onTapOutside: (event) => FocusScope.of(context).unfocus(),
           validator: validator,
           readOnly: readOnly ?? false,
+          obscureText: isObscure ?? false,
         ),
       ),
     );

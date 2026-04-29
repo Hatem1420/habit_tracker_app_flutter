@@ -32,7 +32,10 @@ class ProfileFeatureWidget extends StatelessWidget {
                   child: CircleAvatar(
                     child: state is ProfileLoadingState
                         ? LoadingWidget()
-                        : Icon(Icons.person, color: Colors.white),
+                        : Icon(
+                            Icons.person,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                   ),
                 ),
               );

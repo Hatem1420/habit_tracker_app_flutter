@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:flex_color_picker/flex_color_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:personal_habit_tracker_app/core/services/user_service.dart';
 import 'package:personal_habit_tracker_app/features/habits/data/models/habits_model.dart';
@@ -7,7 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class BaseHabitsRemoteDataSource {
   Future<List<HabitsModel>> getHabits();
-  Future<void> addHabit(String title);
+  Future<void> addHabit(String title, Color color);
   Future<void> deleteHabit(String id);
 }
 
@@ -34,9 +36,13 @@ class HabitsRemoteDataSource implements BaseHabitsRemoteDataSource {
   }
 
   @override
-  Future<void> addHabit(String title) async {
+  Future<void> addHabit(String title, Color color) async {
     final userId = userService.user?.id;
-    await _supabase.from('habits').insert({'title': title, 'user_id': userId});
+    await _supabase.from('habits').insert({
+      'title': title,
+      'user_id': userId,
+      'habit_color': '0x${color.hexAlpha}',
+    });
   }
 
   @override

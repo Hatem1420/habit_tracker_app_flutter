@@ -1,5 +1,6 @@
 import 'dart:core';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_habit_tracker_app/features/habits/domain/use_cases/habits_use_case.dart';
 import 'package:personal_habit_tracker_app/features/habits/presentation/cubit/habits_state.dart';
@@ -7,7 +8,9 @@ import 'package:personal_habit_tracker_app/features/habits/presentation/cubit/ha
 class HabitsCubit extends Cubit<HabitsState> {
   final HabitsUseCase _habitsUseCase;
 
-  HabitsCubit(this._habitsUseCase) : super(HabitsInitialState());
+  HabitsCubit(this._habitsUseCase) : super(HabitsInitialState()) {
+    getHabitsMethod();
+  }
 
   Future<void> getHabitsMethod() async {
     emit(HabitsInitialState());
@@ -22,9 +25,9 @@ class HabitsCubit extends Cubit<HabitsState> {
     );
   }
 
-  Future<void> addNewHabit(String title) async {
+  Future<void> addNewHabit(String title, Color color) async {
     emit(HabitsInitialState());
-    await _habitsUseCase.addHabit(title);
+    await _habitsUseCase.addHabit(title, color);
     getHabitsMethod();
   }
 

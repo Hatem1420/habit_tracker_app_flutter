@@ -38,60 +38,61 @@ class HabitsFeatureScreen extends HookWidget {
         ),
         leading: const ProfileFeatureWidget(),
       ),
-      body: BlocBuilder<HabitsCubit, HabitsState>(
-        builder: (context, state) {
-          switch (state) {
-            case HabitsInitialState():
-              cubit.getHabitsMethod();
-              return const LoadingWidget();
-            case HabitsSuccessState():
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 25,
-                      vertical: 15,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          formattedDate,
-                          style: const TextStyle(
-                            fontSize: 26,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          dayName,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            color: Colors.white70,
-                          ),
-                        ),
-                      ],
-                    ),
+      body: Column(
+        crossAxisAlignment: .start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  formattedDate,
+                  style: const TextStyle(
+                    fontSize: 26,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const Gap(10),
-
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(40),
-                          topRight: Radius.circular(40),
-                        ),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(40),
-                          topRight: Radius.circular(40),
-                        ),
-                        child: RefreshIndicator(
+                ),
+                Text(
+                  dayName,
+                  style: const TextStyle(fontSize: 18, color: Colors.white70),
+                ),
+              ],
+            ),
+          ),
+          const Gap(10),
+          Container(
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40),
+                topRight: Radius.circular(40),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(40),
+                  topRight: Radius.circular(40),
+                ),
+              ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(40),
+                  topRight: Radius.circular(40),
+                ),
+                child: BlocBuilder<HabitsCubit, HabitsState>(
+                  builder: (context, state) {
+                    switch (state) {
+                      case HabitsInitialState():
+                        return const LoadingWidget();
+                      case HabitsSuccessState():
+                        return RefreshIndicator(
                           onRefresh: () => cubit.getHabitsMethod(),
                           child: state.habitsList.isEmpty
                               ? const Center(
@@ -116,7 +117,9 @@ class HabitsFeatureScreen extends HookWidget {
                                       const Color(0xFFE0F2F1),
                                     ];
                                     final Color cardColor =
-                                        cardColors[index % cardColors.length];
+                                        habit.habitColor != null
+                                        ? Color(int.parse(habit.habitColor!))
+                                        : cardColors[index % cardColors.length];
 
                                     return Container(
                                       padding: const EdgeInsets.all(18),
@@ -133,14 +136,27 @@ class HabitsFeatureScreen extends HookWidget {
                                               children: [
                                                 Text(
                                                   habit.title,
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     fontSize: 17,
                                                     fontWeight: FontWeight.bold,
-                                                    color: Colors.black87,
+                                                    color:
+                                                        cardColor
+                                                                .computeLuminance() >
+                                                            0.2
+                                                        ? Colors.black87
+                                                        : Colors.white,
                                                   ),
                                                 ),
                                                 Text(
                                                   'Started: ${DateFormat('MMM d, yyyy').format(DateTime.parse(habit.createdAt))}',
+                                                  style: TextStyle(
+                                                    color:
+                                                        cardColor
+                                                                .computeLuminance() >
+                                                            0.5
+                                                        ? Colors.grey
+                                                        : Colors.white,
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -148,7 +164,13 @@ class HabitsFeatureScreen extends HookWidget {
                                           IconButton(
                                             icon: Icon(
                                               Icons.history_rounded,
-                                              color: Theme.of(context).colorScheme.primary,
+                                              color:
+                                                  cardColor.computeLuminance() >
+                                                      0.5
+                                                  ? Theme.of(
+                                                      context,
+                                                    ).colorScheme.primary
+                                                  : Colors.white,
                                             ),
                                             onPressed: () => context.push(
                                               Routes.habitLogs,
@@ -156,9 +178,13 @@ class HabitsFeatureScreen extends HookWidget {
                                             ),
                                           ),
                                           IconButton(
-                                            icon: const Icon(
+                                            icon: Icon(
                                               Icons.delete_outline_rounded,
-                                              color: Colors.redAccent,
+                                              color:
+                                                  cardColor.computeLuminance() >
+                                                      0.3
+                                                  ? Colors.redAccent
+                                                  : Colors.white,
                                             ),
                                             onPressed: () =>
                                                 cubit.deleteHabit(habit.id),
@@ -168,22 +194,22 @@ class HabitsFeatureScreen extends HookWidget {
                                     );
                                   },
                                 ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            case HabitsErrorState():
-              return const Center(
-                child: Text(
-                  'Error loading habits',
-                  style: TextStyle(color: Colors.white),
+                        );
+                      case HabitsErrorState():
+                        return const Center(
+                          child: Text(
+                            'Error loading habits',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        );
+                    }
+                    return const SizedBox();
+                  },
                 ),
-              );
-          }
-          return const SizedBox();
-        },
+              ),
+            ),
+          ),
+        ],
       ),
 
       floatingActionButton: FloatingActionButton.extended(

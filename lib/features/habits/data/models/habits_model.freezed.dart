@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HabitsModel {
 
- String get id; String get title; String get createdAt;
+ String get id; String get title; String? get habitColor; String get createdAt;
 /// Create a copy of HabitsModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $HabitsModelCopyWith<HabitsModel> get copyWith => _$HabitsModelCopyWithImpl<Habi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HabitsModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HabitsModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.habitColor, habitColor) || other.habitColor == habitColor)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,title,createdAt);
+int get hashCode => Object.hash(runtimeType,id,title,habitColor,createdAt);
 
 @override
 String toString() {
-  return 'HabitsModel(id: $id, title: $title, createdAt: $createdAt)';
+  return 'HabitsModel(id: $id, title: $title, habitColor: $habitColor, createdAt: $createdAt)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $HabitsModelCopyWith<$Res>  {
   factory $HabitsModelCopyWith(HabitsModel value, $Res Function(HabitsModel) _then) = _$HabitsModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, String createdAt
+ String id, String title, String? habitColor, String createdAt
 });
 
 
@@ -62,11 +62,12 @@ class _$HabitsModelCopyWithImpl<$Res>
 
 /// Create a copy of HabitsModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? createdAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? habitColor = freezed,Object? createdAt = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String,habitColor: freezed == habitColor ? _self.habitColor : habitColor // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -152,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  String createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  String? habitColor,  String createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HabitsModel() when $default != null:
-return $default(_that.id,_that.title,_that.createdAt);case _:
+return $default(_that.id,_that.title,_that.habitColor,_that.createdAt);case _:
   return orElse();
 
 }
@@ -173,10 +174,10 @@ return $default(_that.id,_that.title,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  String createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  String? habitColor,  String createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _HabitsModel():
-return $default(_that.id,_that.title,_that.createdAt);case _:
+return $default(_that.id,_that.title,_that.habitColor,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +194,10 @@ return $default(_that.id,_that.title,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  String createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  String? habitColor,  String createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _HabitsModel() when $default != null:
-return $default(_that.id,_that.title,_that.createdAt);case _:
+return $default(_that.id,_that.title,_that.habitColor,_that.createdAt);case _:
   return null;
 
 }
@@ -206,13 +207,14 @@ return $default(_that.id,_that.title,_that.createdAt);case _:
 
 /// @nodoc
 
-
+@JsonSerializable(fieldRename: .snake)
 class _HabitsModel implements HabitsModel {
-  const _HabitsModel({required this.id, required this.title, required this.createdAt});
+  const _HabitsModel({required this.id, required this.title, this.habitColor, required this.createdAt});
   
 
 @override final  String id;
 @override final  String title;
+@override final  String? habitColor;
 @override final  String createdAt;
 
 /// Create a copy of HabitsModel
@@ -225,16 +227,16 @@ _$HabitsModelCopyWith<_HabitsModel> get copyWith => __$HabitsModelCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HabitsModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HabitsModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.habitColor, habitColor) || other.habitColor == habitColor)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,title,createdAt);
+int get hashCode => Object.hash(runtimeType,id,title,habitColor,createdAt);
 
 @override
 String toString() {
-  return 'HabitsModel(id: $id, title: $title, createdAt: $createdAt)';
+  return 'HabitsModel(id: $id, title: $title, habitColor: $habitColor, createdAt: $createdAt)';
 }
 
 
@@ -245,7 +247,7 @@ abstract mixin class _$HabitsModelCopyWith<$Res> implements $HabitsModelCopyWith
   factory _$HabitsModelCopyWith(_HabitsModel value, $Res Function(_HabitsModel) _then) = __$HabitsModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, String createdAt
+ String id, String title, String? habitColor, String createdAt
 });
 
 
@@ -262,11 +264,12 @@ class __$HabitsModelCopyWithImpl<$Res>
 
 /// Create a copy of HabitsModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? createdAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? habitColor = freezed,Object? createdAt = null,}) {
   return _then(_HabitsModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String,habitColor: freezed == habitColor ? _self.habitColor : habitColor // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

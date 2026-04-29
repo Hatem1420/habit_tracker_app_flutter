@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:personal_habit_tracker_app/core/widgets/color_picker_widget.dart';
 import 'package:personal_habit_tracker_app/features/habits/presentation/cubit/habits_cubit.dart';
 
 class AddHabitBottomSheet extends HookWidget {
@@ -12,20 +13,26 @@ class AddHabitBottomSheet extends HookWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<HabitsCubit>();
     final textController = useTextEditingController();
+    Color selectedColor = Color(0xFFFDE7E7);
 
     return Column(
+      spacing: 16,
       mainAxisSize: MainAxisSize.min,
       children: [
         const Text('Add New Habit', style: TextStyle(fontSize: 20)),
-
-        Gap(16),
 
         TextField(
           controller: textController,
           decoration: const InputDecoration(labelText: 'Habit title'),
         ),
 
-        Gap(40),
+        ColorPickerWidget(
+          onColorSelect: (color) {
+            selectedColor = color;
+          },
+        ),
+
+        Gap(16),
 
         FilledButton(
           onPressed: () {
@@ -33,7 +40,7 @@ class AddHabitBottomSheet extends HookWidget {
               return;
             }
 
-            cubit.addNewHabit(textController.text);
+            cubit.addNewHabit(textController.text, selectedColor);
 
             context.pop(context);
           },

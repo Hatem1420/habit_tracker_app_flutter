@@ -18,7 +18,11 @@ class ProfileBottomWidget extends StatelessWidget {
             height: 10.sh,
             child: CircleAvatar(
               minRadius: 60,
-              child: Icon(Icons.person, size: 40, color: Colors.white),
+              child: Icon(
+                Icons.person,
+                size: 50,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
           ),
           ListTile(
